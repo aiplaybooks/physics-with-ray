@@ -1,13 +1,5 @@
 [
  {
-  "order": 1,
-  "id": "01_video2_projectile",
-  "file": "01_video2_projectile.mp4",
-  "hook": "Which launch angle sends a ball the farthest? Take a guess before you watch 👇",
-  "body": "Ray the robot breaks down projectile motion in one minute: why the angle matters and how gravity bends every throw.",
-  "cover": "01_video2_projectile.png"
- },
- {
   "order": 2,
   "id": "02_video3_inertia",
   "file": "02_video3_inertia.mp4",
