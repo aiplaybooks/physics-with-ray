@@ -1,0 +1,8 @@
+.env
+.secrets/
+__pycache__/
+*.pyc
+out/
+# yerel video üretim klasörleri (repoya girmez)
+vector/
+foton/

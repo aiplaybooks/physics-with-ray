@@ -1,0 +1,58 @@
+[
+ {
+  "order": 1,
+  "id": "01_video2_projectile",
+  "file": "01_video2_projectile.mp4",
+  "hook": "Which launch angle sends a ball the farthest? Take a guess before you watch 👇",
+  "body": "Ray the robot breaks down projectile motion in one minute: why the angle matters and how gravity bends every throw.",
+  "cover": "01_video2_projectile.png"
+ },
+ {
+  "order": 2,
+  "id": "02_video3_inertia",
+  "file": "02_video3_inertia.mp4",
+  "hook": "Why do you lurch forward when a bus suddenly brakes? 🚌",
+  "body": "Ray explains inertia, Newton's first law, with simple everyday examples.",
+  "cover": "02_video3_inertia.png"
+ },
+ {
+  "order": 3,
+  "id": "03_video4_second_law",
+  "file": "03_video4_second_law.mp4",
+  "hook": "Why is it harder to push a heavy cart than an empty one? 🛒",
+  "body": "Ray shows Newton's second law, F = m·a, step by step.",
+  "cover": "03_video4_second_law.png"
+ },
+ {
+  "order": 4,
+  "id": "04_video5_third_law",
+  "file": "04_video5_third_law.mp4",
+  "hook": "When you push a wall, does the wall push back? 🧱",
+  "body": "Ray reveals Newton's third law: forces always come in pairs.",
+  "cover": "04_video5_third_law.png"
+ },
+ {
+  "order": 5,
+  "id": "05_video6_energy",
+  "file": "05_video6_energy.mp4",
+  "hook": "Where does a rolling ball's energy go when it stops? ⚡",
+  "body": "Ray follows energy as it changes form, and why it is never lost.",
+  "cover": "05_video6_energy.png"
+ },
+ {
+  "order": 6,
+  "id": "06_video7_heat",
+  "file": "06_video7_heat.mp4",
+  "hook": "Why does a hot drink cool down but never heat up by itself? ☕",
+  "body": "Ray explains how heat flows from hot to cold.",
+  "cover": "06_video7_heat.png"
+ },
+ {
+  "order": 7,
+  "id": "07_video8_electricity",
+  "file": "07_video8_electricity.mp4",
+  "hook": "How does electricity actually get to your lamp? 💡",
+  "body": "Ray follows the current through a simple circuit.",
+  "cover": "07_video8_electricity.png"
+ }
+]

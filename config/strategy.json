@@ -1,0 +1,18 @@
+{
+  "_note": "Autopilot ayarları. Tuner (claude) hashtag/yorum/slot önerilerini buradan günceller; video içeriğine dokunmaz.",
+  "per_day": 3,
+  "slots_utc": ["12:30", "16:30", "20:30"],
+  "catchup_hours": 3,
+  "networks": {"ig": true, "fb": true},
+  "caption": {
+    "outro": "Follow for a new physics lesson every day 🚀",
+    "tags_core": ["#physics", "#science", "#learnphysics", "#physicsfacts", "#stem"],
+    "tags_rotating": ["#sciencefacts", "#education", "#newton", "#didyouknow", "#studytok", "#experiment", "#learnontiktok", "#sciencetok"],
+    "tags_per_post": 7
+  },
+  "first_comment": [
+    "What's your guess? Drop it below 👇",
+    "Did you get it right before watching? Tell us 👇",
+    "Which part surprised you most? 👇"
+  ]
+}
