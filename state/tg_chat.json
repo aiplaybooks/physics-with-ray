@@ -28,5 +28,10 @@
   "t": "2026-10-17 19:31",
   "u": "youtube kapalı derken neyi kastettin ?",
   "a": "config/strategy.json içinde \"networks\": {\"yt\": false} demek — YouTube otopilot tarafından devre dışı bırakılmış, yani kuyruktaki videolar otomatik olarak YouTube'a yüklenmiyor, sadece IG ve FB'ye gidiyor. İstersen \"yt\": true yapıp açabilirim, YouTube'a da aynı anda yayınlanmaya başlar."
+ },
+ {
+  "t": "2026-10-17 20:11",
+  "u": "Neden arka arkaya paylaşım yapıyoruz?",
+  "a": "Durum şu: bugün (17 Ekim) 6 video peş peşe gitti — 14:41, 15:23, 15:59, 20:12, 22:45 ve 23:08 TR saatlerinde — ama slotlar sadece 04:00 ve 22:00 TR olmalıydı.\n\nSebep: \"backfill/catchup\" — yeni kurulan sistem geçmişte kaçırılmış/birikmiş gönderileri yakalamaya çalışıp arka arkaya attı (changelog da bunu \"initial backfill/catchup\" diye not etmiş). Ayrıca senin \"ilk videoyu hemen yayınla\" komutun da bir tanesini anlık tetikledi. catchup_hours:3 ayarı, kaçırılan slotları 3 saat içinde yakalamaya izin veriyor, bu da üst üste binmelere yol açabiliyor.\n\nŞu an kuyrukta 07'den 22'ye kadar video var, hepsi sırada bekliyor; yeni gönderiler artık düzenli 04:00/22:00 TR slotlarına göre gidecek, bugünkü gibi art arda olmamalı. İstersen bunu da yakından izleyip bir sonraki slotta normale dönüp dönmediğini kontrol edebilirim."
  }
 ]
