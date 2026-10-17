@@ -1,19 +1,5 @@
 [
  {
-  "order": 3,
-  "id": "03_video4_second_law",
-  "file": "03_video4_second_law.mp4",
-  "hook": "Why is it harder to push a heavy cart than an empty one? 🛒",
-  "body": "Ray shows Newton's second law, F = m·a, step by step with a simple cart. Save this for your next physics test.",
-  "cover": "03_video4_second_law.png",
-  "tags": [
-   "#newtonssecondlaw",
-   "#forceandmotion",
-   "#stemeducation"
-  ],
-  "first_comment": "Quick one: same push, double the mass. What happens to the acceleration? 👇"
- },
- {
   "order": 4,
   "id": "04_video5_third_law",
   "file": "04_video5_third_law.mp4",
