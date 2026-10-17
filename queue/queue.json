@@ -1,20 +1,5 @@
 [
  {
-  "order": 8,
-  "id": "08_video9_waves",
-  "file": "08_video9_waves.mp4",
-  "hook": "How does the sound of a guitar reach your ear with only air in between? 🎸",
-  "body": "Ray explains how waves work: they carry energy, not matter. Sound is a pressure wave, and speed = frequency × wavelength. Save this for later.",
-  "cover": "08_video9_waves.png",
-  "tags": [
-   "#waves",
-   "#soundwaves",
-   "#learnphysics"
-  ],
-  "first_comment": "If you could see sound waves, what sound would you look at first? 👇",
-  "yt_id": "yqm9njk_Ygc"
- },
- {
   "order": 9,
   "id": "09_video10_doppler",
   "file": "09_video10_doppler.mp4",
