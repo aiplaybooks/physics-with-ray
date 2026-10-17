@@ -7,7 +7,7 @@ import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEYS = ["IG_USER_ID", "IG_TOKEN", "FB_PAGE_ID", "FB_PAGE_TOKEN", "TELEGRAM_TOKEN", "TELEGRAM_CHAT_ID", "CLAUDE_CODE_OAUTH_TOKEN"]
+SECRET_KEYS = ["IG_USER_ID", "IG_TOKEN", "FB_PAGE_ID", "FB_PAGE_TOKEN", "YT_CLIENT_ID", "YT_CLIENT_SECRET", "YT_REFRESH_TOKEN", "TELEGRAM_TOKEN", "TELEGRAM_CHAT_ID", "CLAUDE_CODE_OAUTH_TOKEN"]
 
 
 def main():

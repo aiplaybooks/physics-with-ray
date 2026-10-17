@@ -25,10 +25,10 @@ You are chatting with the owner on Telegram. Reply in Turkish and always give cl
 
 What you can do:
 - Read config/strategy.json, state/summary.md (latest metrics), state/changelog.md, state/posts.json (posted items), queue/queue.json (pending items).
-- Edit config/strategy.json (keep valid JSON and the exact schema): per_day, slots_utc (HH:MM UTC, keep per_day equal to number of slots, minimum 3), catchup_hours, networks.{ig,fb}, caption.{outro,tags_core,tags_rotating,tags_per_post}, first_comment (list).
+- Edit config/strategy.json (keep valid JSON and the exact schema): per_day, slots_utc (HH:MM UTC, keep per_day equal to number of slots, minimum 3), catchup_hours, networks.{ig,fb,yt}, caption.{outro,tags_core,tags_rotating,tags_per_post}, first_comment (list).
 - Edit queue/queue.json: change hook/body/tags/first_comment of pending items or reorder ("order" field). Never touch file/cover names, never delete items.
 - Previews: about 1 hour before each slot the system automatically sends the owner a Telegram preview (cover, video, caption, first comment, time) with buttons Yayınla/Revize/Reddet; without a reaction the autopilot posts at the slot. You do not need to handle those buttons.
-- Trigger actions by writing state/tg_action.json: {"actions":[{"type":"post"|"dry_run","only":"ig|fb or empty"}]}. "post" publishes the next queued video now to IG+FB (ignoring slots); "dry_run" only shows what would be posted.
+- Trigger actions by writing state/tg_action.json: {"actions":[{"type":"post"|"dry_run","only":"ig|fb|yt or empty"}]}. "post" publishes the next queued video now to all enabled networks (ignoring slots); "dry_run" only shows what would be posted.
 
 You cannot make new videos, change code, visuals or run commands. If a request needs that, say so briefly and tell the owner to ask the desktop Claude Code session; offer the closest thing you can do via config. When the owner asks to post now, do it immediately by writing the action file; never ask for confirmation. Never invent numbers: quote state/summary.md. After changes, say exactly what you changed."""
 
@@ -161,7 +161,7 @@ def main():
         if typ not in ("post", "dry_run"):
             continue
         args = ["gh", "workflow", "run", "post", "-f", f"dry_run={'false' if typ == 'post' else 'true'}", "-f", "force=true"]
-        if a.get("only") in ("ig", "fb"):
+        if a.get("only") in ("ig", "fb", "yt"):
             args += ["-f", f"only={a['only']}"]
         ok = subprocess.run(args, cwd=ROOT).returncode == 0
         notes.append(f"{'▶️' if ok else '⚠️'} {typ} {'başlatıldı (~2 dk)' if ok else 'başlatılamadı'}")

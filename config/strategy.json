@@ -9,7 +9,8 @@
  "catchup_hours": 3,
  "networks": {
   "ig": true,
-  "fb": true
+  "fb": true,
+  "yt": false
  },
  "caption": {
   "outro": "Send this to a friend who loves science, and follow for a new physics lesson every day 🚀",
@@ -30,6 +31,7 @@
   "Which part surprised you most? 👇"
  ],
  "support": {
+  "yt": "☕ Support Physics With Ray: https://buymeacoffee.com/physicswithray",
   "fb": "☕ Enjoying Physics With Ray? Support us: https://buymeacoffee.com/physicswithray",
   "ig": "☕ Enjoying Physics With Ray? Support us via the link in our bio"
  },

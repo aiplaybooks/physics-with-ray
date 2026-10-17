@@ -3,7 +3,7 @@
 python src/run.py              # normal (GitHub Actions her 30 dk çalıştırır)
 python src/run.py --dry-run    # ne yapacağını yazar, yayınlamaz
 python src/run.py --force      # slot beklemeden sıradakini şimdi yayınla
-python src/run.py --only ig    # tek ağ
+python src/run.py --only ig    # tek ağ (ig|fb|yt)
 python src/run.py --item ID    # kuyruktaki belirli videoyu şimdi yayınla (Telegram "Yayınla" düğmesi)
 python src/run.py --preview    # sıradaki video için Telegram onay önizlemesini şimdi gönder
 """
@@ -67,13 +67,29 @@ def first_comment(item, cfg):
     return item.get("first_comment") or pool[item["order"] % len(pool)]
 
 
+def yt_meta(item, cfg):
+    """YouTube başlığı (#Shorts'lu), açıklaması (destek linki dahil) ve etiketleri."""
+    sup = cfg.get("support", {}).get("yt", "")
+    tags = [t.lstrip("#") for t in cfg["caption"]["tags_core"] + item.get("tags", [])]
+    title = item["hook"]
+    if len(title) > 90:
+        title = title[:89].rstrip() + "…"
+    nl = chr(10) * 2
+    desc = nl.join([item["body"], sup, " ".join("#" + t for t in tags) + " #Shorts"])
+    return title + " #Shorts", desc, tags
+
+
 def comment_text(fc, cfg, net):
     sup = cfg.get("support", {}).get(net)
     return f"{fc}{chr(10) * 2}{sup}" if sup else fc
 
 
-def pending(q):
-    return [i for i in q if (not i.get("ig_id") or not i.get("fb_id")) and i.get("tries", 0) < MAX_TRIES
+NETS = ("ig", "fb", "yt")
+
+
+def pending(q, cfg=None):
+    on = [n for n in NETS if (cfg or {}).get("networks", {"ig": True, "fb": True}).get(n)]
+    return [i for i in q if any(not i.get(n + "_id") for n in on) and i.get("tries", 0) < MAX_TRIES
             and not i.get("skipped") and os.path.exists(os.path.join(QDIR, i["file"]))]
 
 
@@ -156,6 +172,9 @@ def post_item(item, cfg, networks, dry):
         jobs.append(("ig", lambda: publish.ig_reel(mp4, cap, cover), publish.ig_comment))
     if networks.get("fb") and not item.get("fb_id"):
         jobs.append(("fb", lambda: publish.fb_reel(mp4, cap, cover), publish.fb_comment))
+    if networks.get("yt") and not item.get("yt_id"):
+        t, d, tg = yt_meta(item, cfg)
+        jobs.append(("yt", lambda: publish.yt_short(mp4, t, d, tg), publish.yt_comment))
     for net, fn, cm in jobs:
         for attempt in (1, 2):  # Meta geçici hata verebilir: bir kez daha dene
             try:
@@ -175,13 +194,15 @@ def post_item(item, cfg, networks, dry):
                 cm(item[net + "_id"], comment_text(fc, cfg, net))
             except Exception as e:
                 print(net, "ilk yorum:", e)
-    ok = [n for n in ("ig", "fb") if item.get(n + "_id")]
+    ok = [n for n in NETS if item.get(n + "_id")]
     lines = [("🎉 Paylaşıldı" if ok else "⚠️ Paylaşılamadı") + "\n" + item["hook"]]
     if item.get("ig_id"):
         lines.append(f"• ig_reel: {publish.ig_link(item['ig_id']) or item['ig_id']}")
     if item.get("fb_id"):
         lines.append(f"• fb_reel: {publish.fb_link(item['fb_id'])}")
-    for net in ("ig", "fb"):
+    if item.get("yt_id"):
+        lines.append(f"• yt_short: {publish.yt_link(item['yt_id'])}")
+    for net in NETS:
         if not item.get(net + "_id") and item.get(net + "_error"):
             lines.append(f"• {net}_reel: ❌ {item[net + '_error'][:160]}")
     notify.text("\n".join(lines))
@@ -192,18 +213,18 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--force", action="store_true")
-    ap.add_argument("--only", choices=["ig", "fb"])
+    ap.add_argument("--only", choices=list(NETS))
     ap.add_argument("--item")
     ap.add_argument("--preview", action="store_true")
     a = ap.parse_args()
     cfg = jload(os.path.join(ROOT, "config", "strategy.json"), {})
     networks = dict(cfg.get("networks", {"ig": True, "fb": True}))
     if a.only:
-        networks = {n: n == a.only for n in ("ig", "fb")}
+        networks = {n: n == a.only for n in NETS}
     q = jload(QFILE, [])
     posts = jload(POSTS, [])
     now = dt.datetime.now(dt.timezone.utc)
-    pend = pending(q)
+    pend = pending(q, cfg)
     if not pend:
         import notify
         print("kuyruk boş")
@@ -218,7 +239,7 @@ def main():
         print("önizleme gönderildi:", pend[0]["id"], nxt[0])
         return
     # 1) yarım kalan (bir ağa gitmiş, diğerine gitmemiş) video: eksik ağı tamamla, slot harcama
-    partial = [i for i in pend if i.get("ig_id") or i.get("fb_id")]
+    partial = [i for i in pend if any(i.get(n + "_id") for n in NETS)]
     if a.item:
         match = [i for i in pend if i["id"] == a.item]
         if not match:
@@ -241,7 +262,7 @@ def main():
         return
     if os.path.exists(PREVIEW):
         os.remove(PREVIEW)
-    if item.get("ig_id") or item.get("fb_id"):
+    if any(item.get(n + "_id") for n in NETS):
         item.setdefault("slot", slot if slot != "force" else now.strftime("%Y-%m-%d %H:%M"))
     done = all(item.get(n + "_id") for n, on in networks.items() if on)
     if done:
@@ -257,10 +278,10 @@ def main():
                     pass
     jsave(QFILE, q)
     jsave(POSTS, posts)
-    if not any(i for i in pending(q)):
+    if not any(i for i in pending(q, cfg)):
         import notify
         notify.text("⚠️ Kuyrukta bekleyen video kalmadı.")
-    if not done and not any(item.get(n + "_id") for n in ("ig", "fb")):
+    if not done and not any(item.get(n + "_id") for n in NETS):
         sys.exit("yayın başarısız")
 
 

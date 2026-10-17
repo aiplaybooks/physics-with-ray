@@ -8,3 +8,4 @@ vector/
 foton/
 node_modules/
 .wrangler/
+client_secret*.json

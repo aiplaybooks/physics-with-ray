@@ -1,4 +1,4 @@
-"""Bir MP4'ü Instagram Reel (+kapak) ve Facebook Sayfası Reel olarak yayınlar.
+"""Bir MP4'ü Instagram Reel (+kapak), Facebook Sayfası Reel ve YouTube Shorts olarak yayınlar.
 
 Instagram videoyu/kapağı URL'den çeker: dosyalar repodaki herkese açık 'media' release'ine geçici yüklenir, iş bitince silinir.
 """
@@ -82,6 +82,38 @@ def fb_cover(video_id, cover, tries=8):
             return True
         print(f"fb kapak deneme {i + 1}/{tries}: {r.status_code} {r.text[:200]}")
     return False
+
+
+def _yt_token():
+    r = requests.post("https://oauth2.googleapis.com/token", data={
+        "client_id": os.environ["YT_CLIENT_ID"], "client_secret": os.environ["YT_CLIENT_SECRET"],
+        "refresh_token": os.environ["YT_REFRESH_TOKEN"], "grant_type": "refresh_token"})
+    return _check(r)["access_token"]
+
+
+def yt_short(path, title, description, tags=()):
+    """YouTube Shorts yükler (resumable upload). Dönen değer video id."""
+    auth = {"Authorization": f"Bearer {_yt_token()}"}
+    meta = {"snippet": {"title": title[:100], "description": description[:4900], "tags": list(tags), "categoryId": "27"},
+            "status": {"privacyStatus": "public", "selfDeclaredMadeForKids": False}}
+    r = requests.post("https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status",
+                      headers={**auth, "X-Upload-Content-Type": "video/mp4",
+                               "X-Upload-Content-Length": str(os.path.getsize(path))}, json=meta)
+    if r.status_code >= 400:
+        raise RuntimeError(f"YT init -> {r.status_code}: {r.text[:400]}")
+    with open(path, "rb") as f:
+        up = requests.put(r.headers["Location"], data=f, headers={**auth, "Content-Type": "video/mp4"}, timeout=600)
+    return _check(up)["id"]
+
+
+def yt_comment(video_id, message):
+    body = {"snippet": {"videoId": video_id, "topLevelComment": {"snippet": {"textOriginal": message}}}}
+    return _check(requests.post("https://www.googleapis.com/youtube/v3/commentThreads?part=snippet",
+                                headers={"Authorization": f"Bearer {_yt_token()}"}, json=body))["id"]
+
+
+def yt_link(video_id):
+    return f"https://www.youtube.com/shorts/{video_id}"
 
 
 def ig_comment(media_id, message):

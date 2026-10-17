@@ -6,7 +6,7 @@ on:
     inputs:
       dry_run: {type: boolean, default: true, description: "yayınlamadan ne yapacağını yaz"}
       force: {type: boolean, default: false, description: "slot beklemeden sıradakini şimdi yayınla"}
-      only: {type: string, default: "", description: "ig|fb (boş = ikisi)"}
+      only: {type: string, default: "", description: "ig|fb (boş = hepsi)"}
       item: {type: string, default: "", description: "kuyruktaki belirli video id (boş = sıradaki)"}
 concurrency: {group: state, cancel-in-progress: false}
 permissions: {contents: write}
@@ -25,6 +25,9 @@ jobs:
           IG_USER_ID: ${{ secrets.IG_USER_ID }}
           FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
           GH_TOKEN: ${{ github.token }}
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
