@@ -1,0 +1,154 @@
+{
+ "core": [
+  "physics",
+  "physics explained",
+  "physics explained animation",
+  "physics explained shorts",
+  "physics for beginners",
+  "physics explained simply",
+  "physics lessons for beginners",
+  "science shorts"
+ ],
+ "topics": {
+  "03_video4_second_law": [
+   "newton's second law of motion",
+   "newton's second law",
+   "second law of motion",
+   "laws of motion",
+   "f=ma"
+  ],
+  "04_video5_third_law": [
+   "newton's third law of motion",
+   "newton's third law",
+   "action and reaction",
+   "laws of motion",
+   "newton's laws of motion"
+  ],
+  "05_video6_energy": [
+   "conservation of energy",
+   "law of conservation of energy",
+   "energy explained",
+   "kinetic and potential energy",
+   "types of energy"
+  ],
+  "06_video7_heat": [
+   "heat transfer",
+   "heat transfer explained",
+   "thermodynamics",
+   "conduction convection radiation",
+   "thermal energy"
+  ],
+  "07_video8_electricity": [
+   "how electricity works",
+   "electric circuit",
+   "electricity explained",
+   "current voltage resistance",
+   "electric current"
+  ],
+  "08_video9_waves": [
+   "waves",
+   "sound waves",
+   "wave physics",
+   "how sound travels",
+   "sound waves explained"
+  ],
+  "09_video10_doppler": [
+   "doppler effect",
+   "doppler effect explained",
+   "doppler effect physics",
+   "sound waves",
+   "why sirens change pitch"
+  ],
+  "10_video11_light_sound": [
+   "speed of light",
+   "speed of light vs speed of sound",
+   "thunder and lightning",
+   "why lightning comes before thunder",
+   "light and sound"
+  ],
+  "11_video12_reflection": [
+   "reflection of light",
+   "law of reflection",
+   "how mirrors work",
+   "light physics",
+   "optics"
+  ],
+  "12_video13_refraction": [
+   "refraction of light",
+   "refraction explained",
+   "light refraction",
+   "snell's law",
+   "optics"
+  ],
+  "13_video14_rainbow": [
+   "how rainbows form",
+   "rainbow physics",
+   "dispersion of light",
+   "rainbow science",
+   "light physics"
+  ],
+  "14_video15_static": [
+   "static electricity",
+   "static electricity explained",
+   "electric charge",
+   "how static electricity works",
+   "why do we get static shocks"
+  ],
+  "15_video16_magnetism": [
+   "magnetism",
+   "magnetic field",
+   "how magnets work",
+   "magnetism explained",
+   "magnetic force"
+  ],
+  "16_video17_gravity": [
+   "gravity",
+   "gravity explained",
+   "how gravity works",
+   "orbit",
+   "why planets orbit the sun"
+  ],
+  "17_video18_circular_motion": [
+   "centripetal force",
+   "centripetal force explained",
+   "circular motion",
+   "centrifugal force",
+   "circular motion physics"
+  ],
+  "18_video19_buoyancy": [
+   "buoyancy",
+   "buoyancy explained",
+   "archimedes principle",
+   "why do ships float",
+   "how boats float"
+  ],
+  "19_video20_friction": [
+   "friction",
+   "friction explained",
+   "types of friction",
+   "friction physics",
+   "force and motion"
+  ],
+  "20_video21_momentum": [
+   "momentum",
+   "momentum explained",
+   "impulse and momentum",
+   "conservation of momentum",
+   "linear momentum"
+  ],
+  "21_video22_levers": [
+   "levers",
+   "how levers work",
+   "torque",
+   "torque explained",
+   "simple machines"
+  ],
+  "22_video23_relativity": [
+   "special relativity",
+   "theory of relativity",
+   "relativity explained",
+   "einstein's theory of relativity",
+   "einstein"
+  ]
+ }
+}

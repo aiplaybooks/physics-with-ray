@@ -70,12 +70,14 @@ def first_comment(item, cfg):
 def yt_meta(item, cfg):
     """YouTube başlığı (#Shorts'lu), açıklaması (destek linki dahil) ve etiketleri."""
     sup = cfg.get("support", {}).get("yt", "")
-    tags = [t.lstrip("#") for t in cfg["caption"]["tags_core"] + item.get("tags", [])]
+    yt = jload(os.path.join(ROOT, "config", "yt_tags.json"), {})
+    tags = yt.get("core", []) + yt.get("topics", {}).get(item["id"], [t.lstrip("#") for t in item.get("tags", [])])
     title = item["hook"]
     if len(title) > 90:
         title = title[:89].rstrip() + "…"
     nl = chr(10) * 2
-    desc = nl.join([item["body"], sup, " ".join("#" + t for t in tags) + " #Shorts"])
+    hashtags = " ".join("#" + t.replace(" ", "").replace("'", "") for t in tags[-5:-3] + tags[:1]) + " #Shorts"
+    desc = nl.join([item["body"], sup, hashtags])
     return title + " #Shorts", desc, tags
 
 
@@ -157,6 +159,19 @@ def held_for_revision(item):
     return cur.get("item") == item["id"] and cur.get("status") == "revise"
 
 
+def yt_after(vid, msg, cover, cfg):
+    """Yüklemeden sonra: küçük resim, Physics With Ray playlist'i, ilk yorum. Biri hata verirse diğerleri yine denenir."""
+    import publish
+    steps = [("küçük resim", lambda: cover and publish.yt_thumbnail(vid, cover)),
+             ("playlist", lambda: cfg.get("yt", {}).get("playlist_id") and publish.yt_playlist_add(vid, cfg["yt"]["playlist_id"])),
+             ("ilk yorum", lambda: publish.yt_comment(vid, msg))]
+    for name, fn in steps:
+        try:
+            fn()
+        except Exception as e:
+            print("yt", name + ":", e)
+
+
 def post_item(item, cfg, networks, dry):
     import notify
     import publish
@@ -174,7 +189,7 @@ def post_item(item, cfg, networks, dry):
         jobs.append(("fb", lambda: publish.fb_reel(mp4, cap, cover), publish.fb_comment))
     if networks.get("yt") and not item.get("yt_id"):
         t, d, tg = yt_meta(item, cfg)
-        jobs.append(("yt", lambda: publish.yt_short(mp4, t, d, tg), publish.yt_comment))
+        jobs.append(("yt", lambda: publish.yt_short(mp4, t, d, tg), lambda vid, msg: yt_after(vid, msg, cover, cfg)))
     for net, fn, cm in jobs:
         for attempt in (1, 2):  # Meta geçici hata verebilir: bir kez daha dene
             try:

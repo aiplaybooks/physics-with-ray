@@ -91,19 +91,47 @@ def _yt_token():
     return _check(r)["access_token"]
 
 
-def yt_short(path, title, description, tags=()):
+YT = "https://www.googleapis.com/youtube/v3"
+
+
+def yt_fields(title, description, tags=(), privacy="public"):
+    """Kanal ayarları: Education, English, ABD, yapay zekâ içeriği evet, ücretli tanıtım yok."""
+    return {"snippet": {"title": title[:100], "description": description[:4900], "tags": list(tags), "categoryId": "27",
+                        "defaultLanguage": "en", "defaultAudioLanguage": "en"},
+            "status": {"privacyStatus": privacy, "selfDeclaredMadeForKids": False, "embeddable": True, "publicStatsViewable": True,
+                       "license": "youtube", "containsSyntheticMedia": True,
+                       "paidProductPlacementDetails": {"hasPaidProductPlacement": False}},
+            "recordingDetails": {"location": {"latitude": 39.8283, "longitude": -98.5795}, "locationDescription": "United States"}}
+
+
+def yt_short(path, title, description, tags=(), privacy="public"):
     """YouTube Shorts yükler (resumable upload). Dönen değer video id."""
     auth = {"Authorization": f"Bearer {_yt_token()}"}
-    meta = {"snippet": {"title": title[:100], "description": description[:4900], "tags": list(tags), "categoryId": "27"},
-            "status": {"privacyStatus": "public", "selfDeclaredMadeForKids": False}}
-    r = requests.post("https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status",
+    r = requests.post("https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status,recordingDetails",
                       headers={**auth, "X-Upload-Content-Type": "video/mp4",
-                               "X-Upload-Content-Length": str(os.path.getsize(path))}, json=meta)
+                               "X-Upload-Content-Length": str(os.path.getsize(path))},
+                      json=yt_fields(title, description, tags, privacy))
     if r.status_code >= 400:
         raise RuntimeError(f"YT init -> {r.status_code}: {r.text[:400]}")
     with open(path, "rb") as f:
         up = requests.put(r.headers["Location"], data=f, headers={**auth, "Content-Type": "video/mp4"}, timeout=600)
     return _check(up)["id"]
+
+
+def yt_thumbnail(video_id, cover):
+    with open(cover, "rb") as f:
+        return _check(requests.post(f"https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId={video_id}",
+                                    headers={"Authorization": f"Bearer {_yt_token()}", "Content-Type": "image/png"}, data=f))
+
+
+def yt_playlist_create(title, description=""):
+    body = {"snippet": {"title": title, "description": description}, "status": {"privacyStatus": "public"}}
+    return _check(requests.post(f"{YT}/playlists?part=snippet,status", headers={"Authorization": f"Bearer {_yt_token()}"}, json=body))["id"]
+
+
+def yt_playlist_add(video_id, playlist_id):
+    body = {"snippet": {"playlistId": playlist_id, "resourceId": {"kind": "youtube#video", "videoId": video_id}}}
+    return _check(requests.post(f"{YT}/playlistItems?part=snippet", headers={"Authorization": f"Bearer {_yt_token()}"}, json=body))["id"]
 
 
 def yt_comment(video_id, message):
