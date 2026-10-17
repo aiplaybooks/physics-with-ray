@@ -74,3 +74,15 @@ def ig_comment(media_id, message):
 
 def fb_comment(video_id, message):
     return _check(requests.post(f"{FB}/{video_id}/comments", data={"message": message, "access_token": os.environ["FB_PAGE_TOKEN"]}))["id"]
+
+
+def ig_link(media_id):
+    """Reel'in herkese açık bağlantısı (alınamazsa None)."""
+    try:
+        return requests.get(f"{IG}/{media_id}", params={"fields": "permalink", "access_token": os.environ["IG_TOKEN"]}, timeout=30).json().get("permalink")
+    except requests.RequestException:
+        return None
+
+
+def fb_link(video_id):
+    return f"https://www.facebook.com/reel/{video_id}"
