@@ -5,6 +5,8 @@ python src/run.py --dry-run    # ne yapacağını yazar, yayınlamaz
 python src/run.py --force      # slot beklemeden sıradakini şimdi yayınla
 python src/run.py --only ig    # tek ağ
 """
+import sys as _s
+_s.stdout.reconfigure(encoding='utf-8', errors='replace')
 import argparse
 import datetime as dt
 import json
