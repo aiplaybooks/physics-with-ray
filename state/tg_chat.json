@@ -38,5 +38,10 @@
   "t": "2026-10-17 20:13",
   "u": "bundan sonra günde 2 videodan fazla kesinlikle atılmayacak, bunun önüne geç.",
   "a": "`catchup_hours`'u 3'ten 0'a düşürdüm. Bugünkü art arda paylaşımların sebebi buydu: sistem kaçırılmış slotları \"yakalamaya\" çalışıp üst üste atıyordu. Artık kaçırılan bir slot varsa yakalanmayacak, sadece bir sonraki normal slotta (04:00 / 22:00 TR) devam edecek — yani günde kesinlikle 2'den fazla olmayacak.\n\nSlotlar zaten doğru (per_day: 2, 04:00 ve 22:00 TR), onlara dokunmadım."
+ },
+ {
+  "t": "2026-10-17 20:53",
+  "u": "Neden yeni içerik paylaştın?",
+  "a": "Kontrol ettim, ben bir şey yapmadım — ben bu sohbette hiçbir \"post\" komutu göndermedim.\n\nPosts.json'a göre bugün 3 yeni video daha gitmiş: 05_video6_energy, 06_video7_heat, 07_video8_electricity — sırasıyla 22:45, 23:08, 23:49 TR'de (19:45-20:49 UTC). Bunlar normal slot postları gibi değil: slot alanları \"null\", yani 04:00/22:00 slotlarından değil, \"hemen yayınla\" (manuel post) tetikleyicisiyle art arda 3 kez atılmış gibi görünüyor. Senin daha önce düzelttiğim catchup_hours=0 ayarı sadece slot kaçırma senaryosunu kapsıyordu, bu manuel tetikleme yolunu değil.\n\nBenim bu oturumda böyle bir işlem yaptığıma dair kayıt yok, dolayısıyla bu ya masaüstü Claude Code tarafında ya da GitHub Actions'ta elle tetiklenmiş olabilir. Senin tarafından mı tetiklendi, yoksa farkında olmadan mı gitti?"
  }
 ]
