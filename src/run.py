@@ -109,7 +109,7 @@ def send_preview(item, cfg, nxt):
     cover = os.path.join(QDIR, item["cover"]) if item.get("cover") and os.path.exists(os.path.join(QDIR, item["cover"])) else None
     tr = t + dt.timedelta(hours=3)
     body = (f"Caption:\n{build_caption(item, cfg)}\n\n💬 İlk yorum: {first_comment(item, cfg)}\n\n"
-            f"🤖 Otopilot onaylayacak: {tr:%d.%m %H:%M} (TR) / {t:%H:%M} UTC'de IG + FB'ye yayınlanacak. "
+            f"🤖 Otopilot onaylayacak: {tr:%d.%m %H:%M}'de IG + FB'ye yayınlanacak. "
             f"Müdahale etmezsen o saatte kendiliğinden çıkar.")
     notify.preview(item["id"], mp4, cover, item["hook"], body)
     jsave(PREVIEW, {"item": item["id"], "slot": key, "status": "pending"})
