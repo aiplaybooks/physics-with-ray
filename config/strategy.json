@@ -1,15 +1,15 @@
 {
- "_note": "Autopilot ayarları. Tuner (claude) hashtag/yorum/slot önerilerini buradan günceller; video içeriğine dokunmaz. | Hafta planı: tools/week_copy.py (IG 5 etiket sınırı: 2 çekirdek + 3 konu). FB elle planlanıyor (networks.fb=false).",
+ "_note": "Autopilot ayarları. Tuner (claude) hashtag/yorum/slot önerilerini buradan günceller; video içeriğine dokunmaz. | Hafta planı: tools/week_copy.py (IG 5 etiket sınırı: 2 çekirdek + 3 konu). IG+FB aynı slotlarda otopilotla yayınlanır (kapaklı).",
  "per_day": 3,
  "slots_utc": [
   "12:30",
-  "16:30",
-  "22:30"
+  "17:00",
+  "21:00"
  ],
  "catchup_hours": 3,
  "networks": {
   "ig": true,
-  "fb": false
+  "fb": true
  },
  "caption": {
   "outro": "Send this to a friend who loves science, and follow for a new physics lesson every day 🚀",

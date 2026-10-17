@@ -107,8 +107,8 @@ COPY = {
          "Does it blow your mind that GPS needs relativity? Tell us what you think 👇"),
 }
 
-# Yayın yeri: 3 slot/gün (UTC). Hedef kitle varsayımı: ABD (ET). 12:30 UTC = 08:30 ET, 16:30 UTC = 12:30 ET, 22:30 UTC = 18:30 ET.
-SLOTS_UTC = ["12:30", "16:30", "22:30"]
+# Hedef kitle ABD/Kanada/İngiltere. 12:30 UTC = 13:30 UK / 08:30 ET / 05:30 PT; 17:00 UTC = 18:00 UK / 13:00 ET / 10:00 PT; 21:00 UTC = 22:00 UK / 17:00 ET / 14:00 PT (22 Ekim haftası, yaz saati)
+SLOTS_UTC = ["12:30", "17:00", "21:00"]
 FIRST_DAY = dt.date(2026, 10, 17)
 FIRST_NO = 4      # 3. video 17 Ekim 12:25 UTC'de otopilot ile paylaşıldı; plan bugünün 16:30 slotundan başlar
 SKIP_SLOTS = 1    # bugünün 12:30 slotu (video 3) kullanıldı
