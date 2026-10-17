@@ -1,13 +1,5 @@
 [
  {
-  "order": 2,
-  "id": "02_video3_inertia",
-  "file": "02_video3_inertia.mp4",
-  "hook": "Why do you lurch forward when a bus suddenly brakes? 🚌",
-  "body": "Ray explains inertia, Newton's first law, with simple everyday examples.",
-  "cover": "02_video3_inertia.png"
- },
- {
   "order": 3,
   "id": "03_video4_second_law",
   "file": "03_video4_second_law.mp4",
