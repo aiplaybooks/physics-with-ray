@@ -170,12 +170,15 @@ def post_item(item, cfg, networks, dry):
                 cm(item[net + "_id"], fc)
             except Exception as e:
                 print(net, "ilk yorum:", e)
-    lines = [f"🎬 {item['hook']}"]
+    ok = [n for n in ("ig", "fb") if item.get(n + "_id")]
+    lines = [("🎉 Paylaşıldı" if ok else "⚠️ Paylaşılamadı") + "\n" + item["hook"]]
+    if item.get("ig_id"):
+        lines.append(f"• ig_reel: {publish.ig_link(item['ig_id']) or item['ig_id']}")
+    if item.get("fb_id"):
+        lines.append(f"• fb_reel: {publish.fb_link(item['fb_id'])}")
     for net in ("ig", "fb"):
-        if item.get(net + "_id"):
-            lines.append(f"{net.upper()} ✅ {item[net + '_id']}")
-        elif item.get(net + "_error"):
-            lines.append(f"{net.upper()} ❌ {item[net + '_error'][:160]}")
+        if not item.get(net + "_id") and item.get(net + "_error"):
+            lines.append(f"• {net}_reel: ❌ {item[net + '_error'][:160]}")
     notify.text("\n".join(lines))
 
 
