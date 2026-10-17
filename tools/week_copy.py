@@ -109,14 +109,17 @@ COPY = {
 
 # Yayın yeri: 3 slot/gün (UTC). Hedef kitle varsayımı: ABD (ET). 12:30 UTC = 08:30 ET, 16:30 UTC = 12:30 ET, 22:30 UTC = 18:30 ET.
 SLOTS_UTC = ["12:30", "16:30", "22:30"]
-FIRST_DAY = dt.date(2026, 10, 18)
+FIRST_DAY = dt.date(2026, 10, 17)
+FIRST_NO = 4      # 3. video 17 Ekim 12:25 UTC'de otopilot ile paylaşıldı; plan bugünün 16:30 slotundan başlar
+SKIP_SLOTS = 1    # bugünün 12:30 slotu (video 3) kullanıldı
 
 
 def plan():
     rows = []
-    for i, no in enumerate(sorted(COPY)):
-        day = FIRST_DAY + dt.timedelta(days=i // 3)
-        h, m = map(int, SLOTS_UTC[i % 3].split(":"))
+    for i, no in enumerate(n for n in sorted(COPY) if n >= FIRST_NO):
+        j = i + SKIP_SLOTS
+        day = FIRST_DAY + dt.timedelta(days=j // 3)
+        h, m = map(int, SLOTS_UTC[j % 3].split(":"))
         t = dt.datetime(day.year, day.month, day.day, h, m, tzinfo=dt.timezone.utc)
         rows.append((no, t))
     return rows
@@ -137,7 +140,7 @@ def main():
     elif cmd == "enqueue":
         for no in sorted(COPY):
             if no < 9:
-                continue
+                continue  # 3-8 zaten kuyrukta (patch ile güncellenir)
             vid, cov, hook, body, tags, fc = COPY[no]
             subprocess.check_call([sys.executable, os.path.join(ROOT, "tools", "enqueue.py"), "--video", os.path.join(V, vid),
                                    "--cover", os.path.join(K, cov), "--hook", hook, "--body", body,
