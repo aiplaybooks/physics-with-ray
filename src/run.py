@@ -67,6 +67,11 @@ def first_comment(item, cfg):
     return item.get("first_comment") or pool[item["order"] % len(pool)]
 
 
+def comment_text(fc, cfg, net):
+    sup = cfg.get("support", {}).get(net)
+    return f"{fc}{chr(10) * 2}{sup}" if sup else fc
+
+
 def pending(q):
     return [i for i in q if (not i.get("ig_id") or not i.get("fb_id")) and i.get("tries", 0) < MAX_TRIES
             and not i.get("skipped") and os.path.exists(os.path.join(QDIR, i["file"]))]
@@ -108,7 +113,7 @@ def send_preview(item, cfg, nxt):
     mp4 = os.path.join(QDIR, item["file"])
     cover = os.path.join(QDIR, item["cover"]) if item.get("cover") and os.path.exists(os.path.join(QDIR, item["cover"])) else None
     tr = t + dt.timedelta(hours=3)
-    body = (f"Caption:\n{build_caption(item, cfg)}\n\n💬 İlk yorum: {first_comment(item, cfg)}\n\n"
+    body = (f"Caption:\n{build_caption(item, cfg)}\n\n💬 İlk yorum: {comment_text(first_comment(item, cfg), cfg, 'fb')}\n\n"
             f"🤖 Otopilot onaylayacak: {tr:%d.%m %H:%M}'de IG + FB'ye yayınlanacak. "
             f"Müdahale etmezsen o saatte kendiliğinden çıkar.")
     notify.preview(item["id"], mp4, cover, item["hook"], body)
@@ -167,7 +172,7 @@ def post_item(item, cfg, networks, dry):
         if item.get(net + "_id"):
             time.sleep(5)
             try:
-                cm(item[net + "_id"], fc)
+                cm(item[net + "_id"], comment_text(fc, cfg, net))
             except Exception as e:
                 print(net, "ilk yorum:", e)
     ok = [n for n in ("ig", "fb") if item.get(n + "_id")]

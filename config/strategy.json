@@ -29,6 +29,10 @@
   "Did you get it right before watching? Tell us 👇",
   "Which part surprised you most? 👇"
  ],
+ "support": {
+  "fb": "☕ Enjoying Physics With Ray? Support us: https://buymeacoffee.com/physicswithray",
+  "ig": "☕ Enjoying Physics With Ray? Support us via the link in our bio"
+ },
  "approval": {
   "enabled": true,
   "lead_minutes": 60
