@@ -6,3 +6,5 @@ out/
 # yerel video üretim klasörleri (repoya girmez)
 vector/
 foton/
+node_modules/
+.wrangler/

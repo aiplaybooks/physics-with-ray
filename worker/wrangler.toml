@@ -1,0 +1,8 @@
+name = "physics-with-ray-bot"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+[vars]
+REPO = "aiplaybooks/physics-with-ray"
+CHAT_ID = "<TELEGRAM_CHAT_ID>"
+# secrets (wrangler secret put): TG_TOKEN, GH_PAT, WEBHOOK_SECRET
