@@ -23,5 +23,10 @@
   "t": "2026-10-17 19:30",
   "u": "Şimdi tekrar kontrol et",
   "a": "Şimdi 2 slot var: 04:00 ve 22:00 (TR saati) — IG ve FB'ye aynı anda yayınlanıyor, YouTube kapalı. Yani günde 2 gönderi. Önceki yanıtım eskiydi, config güncellenmiş, şu an doğrusu bu."
+ },
+ {
+  "t": "2026-10-17 19:31",
+  "u": "youtube kapalı derken neyi kastettin ?",
+  "a": "config/strategy.json içinde \"networks\": {\"yt\": false} demek — YouTube otopilot tarafından devre dışı bırakılmış, yani kuyruktaki videolar otomatik olarak YouTube'a yüklenmiyor, sadece IG ve FB'ye gidiyor. İstersen \"yt\": true yapıp açabilirim, YouTube'a da aynı anda yayınlanmaya başlar."
  }
 ]
