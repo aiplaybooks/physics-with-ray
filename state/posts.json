@@ -106,5 +106,22 @@
    "blue_reels_play_count": 1,
    "post_video_followers": 0
   }
+ },
+ {
+  "order": 5,
+  "id": "05_video6_energy",
+  "hook": "Where does a rolling ball's energy go when it stops? ⚡",
+  "body": "Ray follows energy as it changes form, and shows why energy is never lost: the law of conservation of energy.",
+  "tags": [
+   "#energy",
+   "#conservationofenergy",
+   "#learnphysics"
+  ],
+  "first_comment": "Can you name three places the ball's energy ended up? 👇",
+  "yt_id": "nB4r34Dwy9U",
+  "ig_id": "17942558367361873",
+  "fb_id": "2963962393972861",
+  "slot": null,
+  "posted_utc": "2026-10-17T19:45:27Z"
  }
 ]

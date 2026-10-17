@@ -1,19 +1,5 @@
 [
  {
-  "order": 5,
-  "id": "05_video6_energy",
-  "file": "05_video6_energy.mp4",
-  "hook": "Where does a rolling ball's energy go when it stops? ⚡",
-  "body": "Ray follows energy as it changes form, and shows why energy is never lost: the law of conservation of energy.",
-  "cover": "05_video6_energy.png",
-  "tags": [
-   "#energy",
-   "#conservationofenergy",
-   "#learnphysics"
-  ],
-  "first_comment": "Can you name three places the ball's energy ended up? 👇"
- },
- {
   "order": 6,
   "id": "06_video7_heat",
   "file": "06_video7_heat.mp4",
@@ -25,7 +11,8 @@
    "#thermodynamics",
    "#sciencefacts"
   ],
-  "first_comment": "What's the longest your coffee has ever stayed hot? ☕👇"
+  "first_comment": "What's the longest your coffee has ever stayed hot? ☕👇",
+  "yt_id": "2qGDSA7yuYM"
  },
  {
   "order": 7,
@@ -39,7 +26,8 @@
    "#electriccircuit",
    "#stemeducation"
   ],
-  "first_comment": "Guess first: what is actually moving inside the wire? Then check the video 👇"
+  "first_comment": "Guess first: what is actually moving inside the wire? Then check the video 👇",
+  "yt_id": "jJlicNRRE_Q"
  },
  {
   "order": 8,
@@ -53,7 +41,8 @@
    "#soundwaves",
    "#learnphysics"
   ],
-  "first_comment": "If you could see sound waves, what sound would you look at first? 👇"
+  "first_comment": "If you could see sound waves, what sound would you look at first? 👇",
+  "yt_id": "yqm9njk_Ygc"
  },
  {
   "order": 9,
@@ -67,7 +56,8 @@
    "#soundwaves",
    "#sciencefacts"
   ],
-  "first_comment": "Where have you noticed this? Sirens, race cars, trains? 👇"
+  "first_comment": "Where have you noticed this? Sirens, race cars, trains? 👇",
+  "yt_id": "4Lvp3Rhk74Y"
  },
  {
   "order": 10,
