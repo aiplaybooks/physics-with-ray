@@ -64,6 +64,9 @@ def callback(cb, mid):
         notify.text("Bu önizleme artık geçerli değil (video yayınlanmış, reddedilmiş ya da kuyrukta yok).")
         return
     cfg = load(STRATEGY, {})
+    if load(PREVIEW, {}).get("item") != iid:  # önizleme zaten işlendi (çift basış): ikinci kez yayın başlatma
+        notify.text("Bu önizleme zaten işlendi, tekrar işlem yapmadım.")
+        return
     if act == "ok":
         if os.path.exists(PREVIEW):
             os.remove(PREVIEW)
