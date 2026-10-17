@@ -7,6 +7,7 @@ on:
       dry_run: {type: boolean, default: true, description: "yayınlamadan ne yapacağını yaz"}
       force: {type: boolean, default: false, description: "slot beklemeden sıradakini şimdi yayınla"}
       only: {type: string, default: "", description: "ig|fb (boş = ikisi)"}
+      item: {type: string, default: "", description: "kuyruktaki belirli video id (boş = sıradaki)"}
 concurrency: {group: state, cancel-in-progress: false}
 permissions: {contents: write}
 jobs:
@@ -33,6 +34,7 @@ jobs:
             if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
             if [ "${{ inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
             if [ -n "${{ inputs.only }}" ]; then ARGS="$ARGS --only ${{ inputs.only }}"; fi
+            if [ -n "${{ inputs.item }}" ]; then ARGS="$ARGS --item ${{ inputs.item }}"; fi
           fi
           python src/run.py $ARGS
       - name: commit state

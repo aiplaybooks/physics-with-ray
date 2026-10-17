@@ -4,6 +4,8 @@ python src/run.py              # normal (GitHub Actions her 30 dk çalıştırı
 python src/run.py --dry-run    # ne yapacağını yazar, yayınlamaz
 python src/run.py --force      # slot beklemeden sıradakini şimdi yayınla
 python src/run.py --only ig    # tek ağ
+python src/run.py --item ID    # kuyruktaki belirli videoyu şimdi yayınla (Telegram "Yayınla" düğmesi)
+python src/run.py --preview    # sıradaki video için Telegram onay önizlemesini şimdi gönder
 """
 import sys as _s
 _s.stdout.reconfigure(encoding='utf-8', errors='replace')
@@ -20,6 +22,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 QDIR = os.path.join(ROOT, "queue")
 QFILE = os.path.join(QDIR, "queue.json")
 POSTS = os.path.join(ROOT, "state", "posts.json")
+PREVIEW = os.path.join(ROOT, "state", "preview.json")
 MAX_TRIES = 3
 
 
@@ -66,7 +69,7 @@ def first_comment(item, cfg):
 
 def pending(q):
     return [i for i in q if (not i.get("ig_id") or not i.get("fb_id")) and i.get("tries", 0) < MAX_TRIES
-            and os.path.exists(os.path.join(QDIR, i["file"]))]
+            and not i.get("skipped") and os.path.exists(os.path.join(QDIR, i["file"]))]
 
 
 def due_slot(cfg, posts, now):
@@ -79,6 +82,58 @@ def due_slot(cfg, posts, now):
             if key not in used and t <= now <= t + dt.timedelta(hours=cfg.get("catchup_hours", 3)):
                 return key
     return None
+
+
+def slot_dt(key):
+    return dt.datetime.strptime(key, "%Y-%m-%d %H:%M").replace(tzinfo=dt.timezone.utc)
+
+
+def upcoming_slot(cfg, posts, now):
+    """Bir sonraki (henüz kullanılmamış) slot: (anahtar, datetime) ya da None."""
+    used = {p.get("slot") for p in posts}
+    for day in (now.date(), now.date() + dt.timedelta(days=1)):
+        for s in sorted(cfg["slots_utc"]):
+            h, m = map(int, s.split(":"))
+            t = dt.datetime(day.year, day.month, day.day, h, m, tzinfo=dt.timezone.utc)
+            key = t.strftime("%Y-%m-%d %H:%M")
+            if t > now and key not in used:
+                return key, t
+    return None
+
+
+def send_preview(item, cfg, nxt):
+    """Telegram'a onay önizlemesi gönder (kapak, video, caption, ilk yorum, saat + düğmeler)."""
+    import notify
+    key, t = nxt
+    mp4 = os.path.join(QDIR, item["file"])
+    cover = os.path.join(QDIR, item["cover"]) if item.get("cover") and os.path.exists(os.path.join(QDIR, item["cover"])) else None
+    tr = t + dt.timedelta(hours=3)
+    body = (f"Caption:\n{build_caption(item, cfg)}\n\n💬 İlk yorum: {first_comment(item, cfg)}\n\n"
+            f"🤖 Otopilot onaylayacak: {tr:%d.%m %H:%M} (TR) / {t:%H:%M} UTC'de IG + FB'ye yayınlanacak. "
+            f"Müdahale etmezsen o saatte kendiliğinden çıkar.")
+    notify.preview(item["id"], mp4, cover, item["hook"], body)
+    jsave(PREVIEW, {"item": item["id"], "slot": key, "status": "pending"})
+
+
+def maybe_preview(cfg, item, posts, now, dry):
+    ap = cfg.get("approval", {})
+    if not ap.get("enabled") or item.get("ig_id") or item.get("fb_id"):
+        return
+    nxt = upcoming_slot(cfg, posts, now)
+    if not nxt or nxt[1] - now > dt.timedelta(minutes=ap.get("lead_minutes", 60)):
+        return
+    cur = jload(PREVIEW, {})
+    if cur.get("item") == item["id"] and cur.get("slot") == nxt[0]:
+        return
+    if dry:
+        print("önizleme gönderilecek:", item["id"], nxt[0])
+        return
+    send_preview(item, cfg, nxt)
+
+
+def held_for_revision(item):
+    cur = jload(PREVIEW, {})
+    return cur.get("item") == item["id"] and cur.get("status") == "revise"
 
 
 def post_item(item, cfg, networks, dry):
@@ -130,6 +185,8 @@ def main():
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--only", choices=["ig", "fb"])
+    ap.add_argument("--item")
+    ap.add_argument("--preview", action="store_true")
     a = ap.parse_args()
     cfg = jload(os.path.join(ROOT, "config", "strategy.json"), {})
     networks = dict(cfg.get("networks", {"ig": True, "fb": True}))
@@ -145,17 +202,37 @@ def main():
         if not a.dry_run and now.hour == 12 and now.minute < 30:
             notify.text("⚠️ Kuyruk boş: yeni video ekle (tools/enqueue.py).")
         return
+    if a.preview:
+        nxt = upcoming_slot(cfg, posts, now)
+        if not nxt:
+            sys.exit("yaklaşan slot yok")
+        send_preview(pend[0], cfg, nxt)
+        print("önizleme gönderildi:", pend[0]["id"], nxt[0])
+        return
     # 1) yarım kalan (bir ağa gitmiş, diğerine gitmemiş) video: eksik ağı tamamla, slot harcama
     partial = [i for i in pend if i.get("ig_id") or i.get("fb_id")]
-    item, slot = (partial[0], None) if partial else (pend[0], None)
-    if not partial:
+    if a.item:
+        match = [i for i in pend if i["id"] == a.item]
+        if not match:
+            sys.exit("bekleyen öğe bulunamadı: " + a.item)
+        item, slot = match[0], "force"
+    elif partial:
+        item, slot = partial[0], None
+    else:
+        item = pend[0]
         slot = "force" if a.force else due_slot(cfg, posts, now)
         if not slot:
-            print("slot vakti değil; sıradaki:", pend[0]["file"], "| bekleyen:", len(pend))
+            maybe_preview(cfg, item, posts, now, a.dry_run)
+            print("slot vakti değil; sıradaki:", item["file"], "| bekleyen:", len(pend))
+            return
+        if not a.force and held_for_revision(item):
+            print("revize bekleniyor, yayın askıda:", item["id"])
             return
     post_item(item, cfg, networks, a.dry_run)
     if a.dry_run:
         return
+    if os.path.exists(PREVIEW):
+        os.remove(PREVIEW)
     if item.get("ig_id") or item.get("fb_id"):
         item.setdefault("slot", slot if slot != "force" else now.strftime("%Y-%m-%d %H:%M"))
     done = all(item.get(n + "_id") for n, on in networks.items() if on)

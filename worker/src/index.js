@@ -14,6 +14,19 @@ export default {
       return new Response("forbidden", { status: 403 });
     }
     const update = await req.json();
+    const cb = update.callback_query;
+    if (cb) {
+      // inline düğme (Yayınla / Revize / Reddet): sadece sahibinin sohbeti
+      if (!cb.message || String(cb.message.chat.id) !== env.CHAT_ID) return new Response("ok");
+      await tg(env, "answerCallbackQuery", { callback_query_id: cb.id, text: "Alındı" });
+      const rc = await fetch(`https://api.github.com/repos/${env.REPO}/dispatches`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${env.GH_PAT}`, Accept: "application/vnd.github+json", "User-Agent": "physics-with-ray-bot" },
+        body: JSON.stringify({ event_type: "telegram", client_payload: { callback: String(cb.data).slice(0, 100), message_id: cb.message.message_id } }),
+      });
+      if (!rc.ok) await tg(env, "sendMessage", { chat_id: env.CHAT_ID, text: `⚠️ GitHub tetiklenemedi (${rc.status}).` });
+      return new Response("ok");
+    }
     const m = update.message;
     // always 200 so Telegram does not retry ignored updates
     if (!m || !m.text || String(m.chat.id) !== env.CHAT_ID) return new Response("ok");
