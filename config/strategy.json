@@ -7,8 +7,8 @@
  ],
  "catchup_hours": 0,
  "networks": {
-  "ig": true,
-  "fb": true,
+  "ig": false,
+  "fb": false,
   "yt": false
  },
  "caption": {

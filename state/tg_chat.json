@@ -48,5 +48,10 @@
   "t": "2026-10-17 20:56",
   "u": "Son 3 video için bana onay gelmedi.",
   "a": "Buldum. Son 3 video (05_video6_energy, 06_video7_heat, 07_video8_electricity) normal slot (04:00/22:00) üzerinden gitmemiş — `slot: null` ve `yt_id` dolu, 19:45-20:49 UTC (22:45-23:49 TR) arasında art arda atılmış.\n\nBunlar YouTube backfill işinin (config'de `yt.backfill_max_order: 22`) sonucu: o süreç kuyruktaki videoları YouTube'a yüklerken IG+FB'ye de aynı anda mirror'lamış, ama bu akış 04:00/22:00 slot sistemine ve dolayısıyla preview/onay mekanizmasına bağlı değil — onay sadece slot postlarından önce devreye giriyor. Bu yüzden sana preview gelmedi.\n\nYani önceki \"neden art arda paylaşım\" sorununun bir başka kaynağı daha varmış: YT backfill, slot dışı IG/FB postu + onaysız. `yt: false` olmasına rağmen bu backfill script'i muhtemelen ayrı çalışıp eski/bekleyen YT yüklemelerini tamamlıyor.\n\nBenim yapabileceğim: config'den bunu durduramam çünkü bu ayrı bir script, kod değişikliği gerekiyor — bunu masaüstü Claude Code session'ına söylemen lazım (backfill job'ın IG/FB mirror'ını kapatması veya onay akışına bağlanması gerekiyor). İstersen bu süreç tamamen bitene kadar izlemeye devam edeyim mi?"
+ },
+ {
+  "t": "2026-10-17 21:15",
+  "u": "Tüm paylaşımları durdur.",
+  "a": "Tamam, durdurdum. `config/strategy.json`'da `networks` içindeki ig, fb, yt üçünü de `false` yaptım — artık otopilot hiçbir platforma otomatik gönderim yapmayacak, slot zamanı gelse de atlanacak.\n\nÖnemli not: Bu benim yapabildiğim en sağlam durdurma yolu (config üzerinden). Ama az önce bahsettiğim YT backfill scripti ayrı bir mekanizma olabilir ve `yt: false` olmasına rağmen çalışmış görünüyordu — o yüzden masaüstü Claude Code session'ına da bu backfill/manuel tetikleme işini tamamen durdurmasını söylemen lazım, benim kontrolümde değil. Hazır olduğunda tekrar açmamı istersen söyle."
  }
 ]
