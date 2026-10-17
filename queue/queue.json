@@ -1,20 +1,5 @@
 [
  {
-  "order": 7,
-  "id": "07_video8_electricity",
-  "file": "07_video8_electricity.mp4",
-  "hook": "How does electricity actually get to your lamp? 💡",
-  "body": "Ray follows the current through a simple electric circuit and shows what is really flowing in the wire. Send this to your favorite electrician.",
-  "cover": "07_video8_electricity.png",
-  "tags": [
-   "#electricity",
-   "#electriccircuit",
-   "#stemeducation"
-  ],
-  "first_comment": "Guess first: what is actually moving inside the wire? Then check the video 👇",
-  "yt_id": "jJlicNRRE_Q"
- },
- {
   "order": 8,
   "id": "08_video9_waves",
   "file": "08_video9_waves.mp4",
