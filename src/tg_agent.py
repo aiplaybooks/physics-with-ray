@@ -97,6 +97,8 @@ def main():
         return callback(os.environ["CB"].strip(), os.environ.get("MID"))
     msg = os.environ["MSG"].strip()
     hist = load(CHAT, [])
+    rev = load(PREVIEW, {})
+    revising = rev.get("status") == "revise"  # Revize düğmesine basılmış: bu mesaj düzeltme isteği
     if msg.lower() in ("/reset", "/start"):
         json.dump([], open(CHAT, "w", encoding="utf8"))
         notify.text("Sohbet geçmişini sıfırladım. Merhaba! Durumu sorabilir, strateji/caption değişikliği isteyebilir ya da \"şimdi paylaş\" diyebilirsin.")
