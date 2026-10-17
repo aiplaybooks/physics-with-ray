@@ -150,7 +150,7 @@ def post_item(item, cfg, networks, dry):
     if networks.get("ig") and not item.get("ig_id"):
         jobs.append(("ig", lambda: publish.ig_reel(mp4, cap, cover), publish.ig_comment))
     if networks.get("fb") and not item.get("fb_id"):
-        jobs.append(("fb", lambda: publish.fb_reel(mp4, cap), publish.fb_comment))
+        jobs.append(("fb", lambda: publish.fb_reel(mp4, cap, cover), publish.fb_comment))
     for net, fn, cm in jobs:
         for attempt in (1, 2):  # Meta geçici hata verebilir: bir kez daha dene
             try:

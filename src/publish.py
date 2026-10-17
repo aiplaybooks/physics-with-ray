@@ -56,7 +56,7 @@ def ig_reel(path, caption, cover=None):
             _drop_asset(a)
 
 
-def fb_reel(path, description):
+def fb_reel(path, description, cover=None):
     tok, pid = os.environ["FB_PAGE_TOKEN"], os.environ["FB_PAGE_ID"]
     st = _check(requests.post(f"{FB}/{pid}/video_reels", data={"upload_phase": "start", "access_token": tok}))
     vid = st["video_id"]
@@ -65,7 +65,23 @@ def fb_reel(path, description):
             "Authorization": f"OAuth {tok}", "offset": "0", "file_size": str(os.path.getsize(path))}))
     _check(requests.post(f"{FB}/{pid}/video_reels", data={
         "upload_phase": "finish", "video_id": vid, "video_state": "PUBLISHED", "description": description, "access_token": tok}))
+    if cover:
+        fb_cover(vid, cover)
     return vid
+
+
+def fb_cover(video_id, cover, tries=8):
+    """Reel işlendikten sonra kapağı tercih edilen küçük resim yapar. Başarısızlık yayını bozmaz, sadece yazdırılır."""
+    tok = os.environ["FB_PAGE_TOKEN"]
+    for i in range(tries):
+        time.sleep(15)
+        with open(cover, "rb") as f:
+            r = requests.post(f"{FB}/{video_id}/thumbnails", data={"is_preferred": "true", "access_token": tok}, files={"source": f})
+        if r.status_code < 400:
+            print("fb kapak ayarlandı:", video_id)
+            return True
+        print(f"fb kapak deneme {i + 1}/{tries}: {r.status_code} {r.text[:200]}")
+    return False
 
 
 def ig_comment(media_id, message):
