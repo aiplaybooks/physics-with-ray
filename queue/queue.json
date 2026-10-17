@@ -4,39 +4,279 @@
   "id": "03_video4_second_law",
   "file": "03_video4_second_law.mp4",
   "hook": "Why is it harder to push a heavy cart than an empty one? 🛒",
-  "body": "Ray shows Newton's second law, F = m·a, step by step.",
-  "cover": "03_video4_second_law.png"
+  "body": "Ray shows Newton's second law, F = m·a, step by step with a simple cart. Save this for your next physics test.",
+  "cover": "03_video4_second_law.png",
+  "tags": [
+   "#newtonssecondlaw",
+   "#forceandmotion",
+   "#stemeducation"
+  ],
+  "first_comment": "Quick one: same push, double the mass. What happens to the acceleration? 👇"
  },
  {
   "order": 4,
   "id": "04_video5_third_law",
   "file": "04_video5_third_law.mp4",
   "hook": "When you push a wall, does the wall push back? 🧱",
-  "body": "Ray reveals Newton's third law: forces always come in pairs.",
-  "cover": "04_video5_third_law.png"
+  "body": "Ray reveals Newton's third law: forces always come in pairs. Send this to a friend who says 'that can't be true'.",
+  "cover": "04_video5_third_law.png",
+  "tags": [
+   "#newtonsthirdlaw",
+   "#actionreaction",
+   "#sciencefacts"
+  ],
+  "first_comment": "Who feels the bigger force: you or the wall? Tell us your answer 👇"
  },
  {
   "order": 5,
   "id": "05_video6_energy",
   "file": "05_video6_energy.mp4",
   "hook": "Where does a rolling ball's energy go when it stops? ⚡",
-  "body": "Ray follows energy as it changes form, and why it is never lost.",
-  "cover": "05_video6_energy.png"
+  "body": "Ray follows energy as it changes form, and shows why energy is never lost: the law of conservation of energy.",
+  "cover": "05_video6_energy.png",
+  "tags": [
+   "#energy",
+   "#conservationofenergy",
+   "#learnphysics"
+  ],
+  "first_comment": "Can you name three places the ball's energy ended up? 👇"
  },
  {
   "order": 6,
   "id": "06_video7_heat",
   "file": "06_video7_heat.mp4",
   "hook": "Why does a hot drink cool down but never heat up by itself? ☕",
-  "body": "Ray explains how heat flows from hot to cold.",
-  "cover": "06_video7_heat.png"
+  "body": "Ray explains heat and temperature, and why heat always flows from hot to cold. Save this for your next coffee break.",
+  "cover": "06_video7_heat.png",
+  "tags": [
+   "#heattransfer",
+   "#thermodynamics",
+   "#sciencefacts"
+  ],
+  "first_comment": "What's the longest your coffee has ever stayed hot? ☕👇"
  },
  {
   "order": 7,
   "id": "07_video8_electricity",
   "file": "07_video8_electricity.mp4",
   "hook": "How does electricity actually get to your lamp? 💡",
-  "body": "Ray follows the current through a simple circuit.",
-  "cover": "07_video8_electricity.png"
+  "body": "Ray follows the current through a simple electric circuit and shows what is really flowing in the wire. Send this to your favorite electrician.",
+  "cover": "07_video8_electricity.png",
+  "tags": [
+   "#electricity",
+   "#electriccircuit",
+   "#stemeducation"
+  ],
+  "first_comment": "Guess first: what is actually moving inside the wire? Then check the video 👇"
+ },
+ {
+  "order": 8,
+  "id": "08_video9_waves",
+  "file": "08_video9_waves.mp4",
+  "hook": "How does the sound of a guitar reach your ear with only air in between? 🎸",
+  "body": "Ray explains how waves work: they carry energy, not matter. Sound is a pressure wave, and speed = frequency × wavelength. Save this for later.",
+  "cover": "08_video9_waves.png",
+  "tags": [
+   "#waves",
+   "#soundwaves",
+   "#learnphysics"
+  ],
+  "first_comment": "If you could see sound waves, what sound would you look at first? 👇"
+ },
+ {
+  "order": 9,
+  "id": "09_video10_doppler",
+  "file": "09_video10_doppler.mp4",
+  "hook": "Why does an ambulance siren sound high coming toward you and low going away? 🚑",
+  "body": "Ray explains the Doppler effect: motion squeezes and stretches waves, so the pitch changes. It works for light too. Send this to a friend who loves cars.",
+  "cover": "09_video10_doppler.png",
+  "tags": [
+   "#dopplereffect",
+   "#soundwaves",
+   "#sciencefacts"
+  ],
+  "first_comment": "Where have you noticed this? Sirens, race cars, trains? 👇"
+ },
+ {
+  "order": 10,
+  "id": "10_video11_light_sound",
+  "file": "10_video11_light_sound.mp4",
+  "hook": "Why do you see lightning first and only hear thunder seconds later? ⚡",
+  "body": "Ray compares the speed of light and the speed of sound, and shows how to count the distance to a storm. Send this to someone who hates thunderstorms.",
+  "cover": "10_video11_light_sound.png",
+  "tags": [
+   "#speedoflight",
+   "#thunderstorm",
+   "#learnphysics"
+  ],
+  "first_comment": "Next storm: count the seconds between flash and thunder, then tell us your number 👇"
+ },
+ {
+  "order": 11,
+  "id": "11_video12_reflection",
+  "file": "11_video12_reflection.mp4",
+  "hook": "Why can you see yourself in a mirror but not in a sheet of paper? 🪞",
+  "body": "Ray explains the law of reflection: the angle in equals the angle out. Smooth surfaces make images, rough ones scatter light.",
+  "cover": "11_video12_reflection.png",
+  "tags": [
+   "#reflection",
+   "#lightphysics",
+   "#stemeducation"
+  ],
+  "first_comment": "Which surface at home is the best mirror that isn't a mirror? 👇"
+ },
+ {
+  "order": 12,
+  "id": "12_video13_refraction",
+  "file": "12_video13_refraction.mp4",
+  "hook": "Why does a straw look broken in a glass of water? 🥤",
+  "body": "Ray explains refraction: light changes speed between materials, so it bends. Try this at home with a glass of water and tell us what you see.",
+  "cover": "12_video13_refraction.png",
+  "tags": [
+   "#refraction",
+   "#lightphysics",
+   "#sciencefacts"
+  ],
+  "first_comment": "Try it right now with a glass and a pencil. Does yours look broken too? 👇"
+ },
+ {
+  "order": 13,
+  "id": "13_video14_rainbow",
+  "file": "13_video14_rainbow.mp4",
+  "hook": "How can plain white sunlight turn into a rainbow? 🌈",
+  "body": "Ray shows dispersion: white light is a mix of colors, and each color bends by a different amount. Send this to someone who chases rainbows.",
+  "cover": "13_video14_rainbow.png",
+  "tags": [
+   "#rainbow",
+   "#dispersion",
+   "#learnphysics"
+  ],
+  "first_comment": "Which color of the rainbow bends the most? Answer before you scroll up 👇"
+ },
+ {
+  "order": 14,
+  "id": "14_video15_static",
+  "file": "14_video15_static.mp4",
+  "hook": "Why does a balloon stick to the wall after you rub it on your hair? 🎈",
+  "body": "Ray explains static electricity and electric charge: rubbing moves electrons, opposite charges attract. Save this and try it with a balloon.",
+  "cover": "14_video15_static.png",
+  "tags": [
+   "#staticelectricity",
+   "#electriccharge",
+   "#sciencefacts"
+  ],
+  "first_comment": "Have you ever shocked yourself on a doorknob? Tell us your best story ⚡👇"
+ },
+ {
+  "order": 15,
+  "id": "15_video16_magnetism",
+  "file": "15_video16_magnetism.mp4",
+  "hook": "Why do two magnets snap together without even touching? 🧲",
+  "body": "Ray explains magnetism, poles and magnetic fields, and how a current in a coil makes an electromagnet. Send this to a friend with fridge magnets.",
+  "cover": "15_video16_magnetism.png",
+  "tags": [
+   "#magnetism",
+   "#magneticfield",
+   "#stemeducation"
+  ],
+  "first_comment": "What happens if you cut a magnet in half? Guess first 👇"
+ },
+ {
+  "order": 16,
+  "id": "16_video17_gravity",
+  "file": "16_video17_gravity.mp4",
+  "hook": "If gravity pulls everything down, why doesn't the Moon crash into Earth? 🌙",
+  "body": "Ray explains gravity and orbits: an orbit is falling while moving sideways fast enough to miss the ground. Send this to a space fan.",
+  "cover": "16_video17_gravity.png",
+  "tags": [
+   "#gravity",
+   "#orbit",
+   "#learnphysics"
+  ],
+  "first_comment": "Are astronauts really weightless? Give us your answer, then watch the end 👇"
+ },
+ {
+  "order": 17,
+  "id": "17_video18_circular_motion",
+  "file": "17_video18_circular_motion.mp4",
+  "hook": "Why do you feel pushed against the door when a car takes a sharp turn? 🚗",
+  "body": "Ray explains circular motion, centripetal force and inertia. The outward push you feel isn't a force. Send this to a friend who drives fast.",
+  "cover": "17_video18_circular_motion.png",
+  "tags": [
+   "#centripetalforce",
+   "#circularmotion",
+   "#sciencefacts"
+  ],
+  "first_comment": "Double the speed in a turn: how much more force do you need? 👇"
+ },
+ {
+  "order": 18,
+  "id": "18_video19_buoyancy",
+  "file": "18_video19_buoyancy.mp4",
+  "hook": "How can a giant steel ship float when a tiny steel nail sinks? 🚢",
+  "body": "Ray explains pressure, buoyant force and Archimedes' principle: floating depends on average density. Save this for later.",
+  "cover": "18_video19_buoyancy.png",
+  "tags": [
+   "#archimedes",
+   "#buoyancy",
+   "#learnphysics"
+  ],
+  "first_comment": "Would a steel ship float if it were a solid block? Tell us why 👇"
+ },
+ {
+  "order": 19,
+  "id": "19_video20_friction",
+  "file": "19_video20_friction.mp4",
+  "hook": "Why is ice so slippery and sandpaper so grippy? 🧊",
+  "body": "Ray explains friction: rough surfaces, the friction coefficient and why static friction beats sliding friction. Send this to someone who just fell on ice.",
+  "cover": "19_video20_friction.png",
+  "tags": [
+   "#friction",
+   "#forceandmotion",
+   "#stemeducation"
+  ],
+  "first_comment": "Where is friction your best friend, and where is it your enemy? 👇"
+ },
+ {
+  "order": 20,
+  "id": "20_video21_momentum",
+  "file": "20_video21_momentum.mp4",
+  "hook": "Why is a slow truck harder to stop than a fast bicycle? 🚚",
+  "body": "Ray explains momentum and impulse: p = m·v, and why airbags work by making a stop last longer. Save this for your next physics exam.",
+  "cover": "20_video21_momentum.png",
+  "tags": [
+   "#momentum",
+   "#impulse",
+   "#sciencefacts"
+  ],
+  "first_comment": "Would you rather be hit by a bowling ball at 1 m/s or a baseball at 40 m/s? Explain with momentum 👇"
+ },
+ {
+  "order": 21,
+  "id": "21_video22_levers",
+  "file": "21_video22_levers.mp4",
+  "hook": "How can a small push lift a heavy rock? 🪨",
+  "body": "Ray explains levers, the fulcrum and torque: a longer arm means less force, but you push farther. Send this to someone who loves tools.",
+  "cover": "21_video22_levers.png",
+  "tags": [
+   "#levers",
+   "#torque",
+   "#learnphysics"
+  ],
+  "first_comment": "Which lever do you use every day without noticing? 👇"
+ },
+ {
+  "order": 22,
+  "id": "22_video23_relativity",
+  "file": "22_video23_relativity.mp4",
+  "hook": "Does time really slow down when you move fast? ⏱️",
+  "body": "Ray explains Einstein's relativity and time dilation with a light clock, and why GPS needs relativity to work. Send this to the friend who loves space.",
+  "cover": "22_video23_relativity.png",
+  "tags": [
+   "#relativity",
+   "#einstein",
+   "#stemeducation"
+  ],
+  "first_comment": "Does it blow your mind that GPS needs relativity? Tell us what you think 👇"
  }
 ]

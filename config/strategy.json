@@ -1,32 +1,28 @@
 {
- "_note": "Autopilot ayarları. Tuner (claude) hashtag/yorum/slot önerilerini buradan günceller; video içeriğine dokunmaz.",
+ "_note": "Autopilot ayarları. Tuner (claude) hashtag/yorum/slot önerilerini buradan günceller; video içeriğine dokunmaz. | Hafta planı: tools/week_copy.py (IG 5 etiket sınırı: 2 çekirdek + 3 konu). FB elle planlanıyor (networks.fb=false).",
  "per_day": 3,
- "slots_utc": [],
+ "slots_utc": [
+  "12:30",
+  "16:30",
+  "22:30"
+ ],
  "catchup_hours": 3,
  "networks": {
   "ig": true,
-  "fb": true
+  "fb": false
  },
  "caption": {
-  "outro": "Follow for a new physics lesson every day 🚀",
+  "outro": "Send this to a friend who loves science, and follow for a new physics lesson every day 🚀",
   "tags_core": [
    "#physics",
-   "#science",
-   "#learnphysics",
-   "#physicsfacts",
-   "#stem"
+   "#physicsfacts"
   ],
   "tags_rotating": [
+   "#learnphysics",
    "#sciencefacts",
-   "#education",
-   "#newton",
-   "#didyouknow",
-   "#studytok",
-   "#experiment",
-   "#learnontiktok",
-   "#sciencetok"
+   "#stemeducation"
   ],
-  "tags_per_post": 7
+  "tags_per_post": 5
  },
  "first_comment": [
   "What's your guess? Drop it below 👇",
@@ -36,10 +32,5 @@
  "approval": {
   "enabled": true,
   "lead_minutes": 60
- },
- "slots_utc_paused": [
-  "12:30",
-  "16:30",
-  "20:30"
- ]
+ }
 }
