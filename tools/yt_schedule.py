@@ -1,14 +1,14 @@
-"""Video 2-23'ü YouTube'a yükler ve yayın saatlerini YouTube içinde zamanlar (gün 2 yayın).
+"""YouTube zamanlayıcı: Video 2-23'ü yükler, yayın saatlerini YouTube içinde zamanlar (günde 2: 04:00 ve 22:40 TR) ve yayına
+giren videolara ilk yorumu atar. GitHub Actions her 30 dk çalıştırır (.github/workflows/yt.yml); elle de çalışır.
 
-python tools/yt_schedule.py --dry     # planı yazdırır
-python tools/yt_schedule.py           # kota yettiği kadar yükler; kota bitince durur, yarın aynı komutla devam eder
+python tools/yt_schedule.py --dry    # planı yazdırır
+python tools/yt_schedule.py          # yüklenebilenleri yükler, yayına girenlere yorum atar
 
-Slotlar (Türkiye saati): 04:00 ve 22:40 = 01:00 ve 19:40 UTC. İlerleme state/yt_schedule.json'da tutulur (tekrar çalıştırmak güvenli).
-Günlük API kotası 10.000 birim, bir yükleme ~1.700 birim: günde en fazla ~5 video yüklenir.
+YouTube günlük yükleme limiti ya da API kotası dolarsa yüklemeler durur, birkaç saat sonra otomatik denenir.
+Slot geçmişte kalan video, bir sonraki boş slota (04:00/22:40 TR) kaydırılır. İlerleme state/yt_schedule.json'da.
 """
 import argparse
 import datetime as dt
-import json
 import os
 import sys
 
@@ -21,9 +21,11 @@ import run  # noqa: E402
 STATE = os.path.join(ROOT, "state", "yt_schedule.json")
 V = os.path.join(ROOT, "vector", "cikti")
 K = os.path.join(V, "kapak")
-FIRST_DAY = dt.date(2026, 10, 18)
-SLOTS_UTC = ["01:00", "19:40"]  # 04:00 ve 22:40 TR
-OLD = {  # kuyruktan çıkmış (IG/FB'de yayınlanmış) videolar: id -> (mp4, kapak)
+SLOTS_UTC = [(1, 0), (19, 40)]  # 04:00 ve 22:40 TR
+FMT = "%Y-%m-%dT%H:%M:%SZ"
+RETRY_HOURS = 6
+MIN_LEAD = dt.timedelta(minutes=20)
+OLD = {  # IG/FB'ye yayınlanıp kuyruktan çıkmış videolar: id -> (mp4, kapak), yerel dosyalar
     "01_video2_projectile": ("video2_projectile.mp4", "kapak_video2_aci.png"),
     "02_video3_inertia": ("video3_inertia.mp4", "kapak_video3_atalet.png"),
     "03_video4_second_law": ("video4_second_law.mp4", "kapak_video4_ikinci_yasa.png"),
@@ -32,27 +34,109 @@ OLD = {  # kuyruktan çıkmış (IG/FB'de yayınlanmış) videolar: id -> (mp4, 
 TITLE = {"01_video2_projectile": "Which launch angle sends a ball the farthest? 🎯"}
 
 
+def now_utc():
+    return dt.datetime.now(dt.timezone.utc).replace(tzinfo=None)
+
+
 def items():
-    out = []
+    """Zamanlanacak tüm videolar, video numarası sırasıyla."""
     posts = {p["id"]: p for p in run.jload(run.POSTS, [])}
     q = {i["id"]: i for i in run.jload(run.QFILE, [])}
-    for iid, (mp4, cover) in OLD.items():
-        it = dict(posts[iid])
-        it["mp4"], it["cover"] = os.path.join(V, mp4), os.path.join(K, cover)
-        out.append(it)
-    for iid, it in sorted(q.items(), key=lambda kv: kv[1]["order"]):
+    out = []
+    for iid, it in {**posts, **q}.items():
         it = dict(it)
-        it["mp4"], it["cover"] = os.path.join(run.QDIR, it["file"]), os.path.join(run.QDIR, it["cover"])
+        if iid in OLD:
+            it["mp4"], it["cover"] = os.path.join(V, OLD[iid][0]), os.path.join(K, OLD[iid][1])
+        else:
+            it["mp4"] = os.path.join(run.QDIR, f"{iid}.mp4")
+            it["cover"] = os.path.join(run.QDIR, f"{iid}.png")
+        if iid in TITLE:
+            it["hook"] = TITLE[iid]
         out.append(it)
-    for it in out:
-        if it["id"] in TITLE:
-            it["hook"] = TITLE[it["id"]]
-    return out
+    return sorted(out, key=lambda x: x["order"])
 
 
-def slot(i):
-    day = FIRST_DAY + dt.timedelta(days=i // 2)
-    return f"{day:%Y-%m-%d}T{SLOTS_UTC[i % 2]}:00Z"
+def next_slot(after):
+    day = after.date()
+    while True:
+        for h, m in SLOTS_UTC:
+            t = dt.datetime(day.year, day.month, day.day, h, m)
+            if t > after:
+                return t
+        day += dt.timedelta(days=1)
+
+
+def upload_all(its, st, cfg, dry):
+    pl = cfg.get("yt", {}).get("playlist_id")
+    meta = st.setdefault("_meta", {})
+    last = max([dt.datetime.strptime(v["publish_at"], FMT) for k, v in st.items() if k != "_meta" and v.get("video_id")],
+               default=dt.datetime(2000, 1, 1))
+    blocked = meta.get("upload_after") and dt.datetime.strptime(meta["upload_after"], FMT) > now_utc()
+    for n, it in enumerate(its, 1):
+        e = st.get(it["id"], {})
+        if e.get("done"):
+            continue
+        title, desc, tags = run.yt_meta(it, cfg)
+        if blocked or dry or not os.path.exists(it["mp4"]):
+            why = "bloklu" if blocked else "dosya yok" if not os.path.exists(it["mp4"]) else "bekliyor"
+            print(f"{n:2d}. {it['id']:28s} {why}  {title}")
+            continue
+        if "video_id" not in e:
+            e = st[it["id"]] = {"publish_at": next_slot(max(last, now_utc() + MIN_LEAD) if last > now_utc() else now_utc() + MIN_LEAD).strftime(FMT), "steps": []}
+        try:
+            if "video_id" not in e:
+                e["video_id"] = publish.yt_short(it["mp4"], title, desc, tags, publish_at=e["publish_at"])
+                run.jsave(STATE, st)
+            last = max(last, dt.datetime.strptime(e["publish_at"], FMT))
+            vid = e["video_id"]
+            for name, fn in (("thumb", lambda: publish.yt_thumbnail(vid, it["cover"])),
+                             ("playlist", lambda: pl and publish.yt_playlist_add(vid, pl))):
+                if name not in e["steps"]:
+                    fn()
+                    e["steps"].append(name)
+                    run.jsave(STATE, st)
+            e["done"] = True
+            run.jsave(STATE, st)
+            print(f"{n:2d}. yüklendi {publish.yt_link(vid)}  yayın {e['publish_at']} UTC")
+            if it["id"] not in {i["id"] for i in run.jload(run.QFILE, [])}:  # IG/FB'de de bitmiş: artık gereksiz dosyalar
+                for f in (it["mp4"], it["cover"]):
+                    if os.path.exists(f) and os.path.dirname(f) == run.QDIR:
+                        os.remove(f)
+        except RuntimeError as ex:
+            msg = str(ex)
+            print(f"{n:2d}. DURDU: {msg[:200]}")
+            if "uploadLimitExceeded" in msg or "quota" in msg.lower():
+                meta["upload_after"] = (now_utc() + dt.timedelta(hours=RETRY_HOURS)).strftime(FMT)
+                print(f"    {RETRY_HOURS} saat sonra tekrar denenecek")
+            run.jsave(STATE, st)
+            return
+
+
+def comment_all(its, st, cfg, dry):
+    import requests
+    for it in its:
+        e = st.get(it["id"], {})
+        if not e.get("done") or e.get("commented") or e.get("comment_tries", 0) >= 3:
+            continue
+        if dt.datetime.strptime(e["publish_at"], FMT) + dt.timedelta(minutes=2) > now_utc():
+            continue
+        r = requests.get(f"{publish.YT}/videos", params={"part": "status", "id": e["video_id"]},
+                         headers={"Authorization": f"Bearer {publish._yt_token()}"})
+        its_ = r.json().get("items", []) if r.status_code < 400 else []
+        if not its_ or its_[0]["status"]["privacyStatus"] != "public":
+            print("henüz yayında değil:", it["id"])
+            continue
+        if dry:
+            print("yorum atılacak:", it["id"])
+            continue
+        try:
+            publish.yt_comment(e["video_id"], run.comment_text(run.first_comment(it, cfg), cfg, "yt"))
+            e["commented"] = True
+            print("yorum atıldı:", it["id"])
+        except RuntimeError as ex:
+            e["comment_tries"] = e.get("comment_tries", 0) + 1
+            print("yorum hatası:", it["id"], str(ex)[:200])
+        run.jsave(STATE, st)
 
 
 def main():
@@ -61,36 +145,12 @@ def main():
     ap.add_argument("--dry", action="store_true")
     a = ap.parse_args()
     cfg = run.jload(os.path.join(ROOT, "config", "strategy.json"), {})
-    pl = cfg.get("yt", {}).get("playlist_id")
-    state = run.jload(STATE, {})
-    for i, it in enumerate(items()):
-        st = state.setdefault(it["id"], {"publish_at": slot(i), "steps": []})
-        title, desc, tags = run.yt_meta(it, cfg)
-        tr = dt.datetime.strptime(st["publish_at"], "%Y-%m-%dT%H:%M:%SZ") + dt.timedelta(hours=3)
-        print(f"{i + 1:2d}. {it['id']:28s} {tr:%d.%m %H:%M} TR  {'tamam' if st.get('done') else 'bekliyor'}  {title}")
-        if a.dry or st.get("done"):
-            continue
-        try:
-            if "video_id" not in st:
-                st["video_id"] = publish.yt_short(it["mp4"], title, desc, tags, publish_at=st["publish_at"])
-                run.jsave(STATE, state)
-            vid = st["video_id"]
-            for name, fn in (("thumb", lambda: publish.yt_thumbnail(vid, it["cover"])),
-                             ("playlist", lambda: pl and publish.yt_playlist_add(vid, pl))):
-                if name not in st["steps"]:
-                    fn()
-                    st["steps"].append(name)
-                    run.jsave(STATE, state)
-            st["done"] = True
-            run.jsave(STATE, state)
-            print("    yüklendi:", publish.yt_link(vid))
-        except RuntimeError as e:
-            run.jsave(STATE, state)
-            print("    DURDU:", str(e)[:300])
-            if "quota" in str(e).lower():
-                print("Günlük kota doldu; yarın (TR 10:00'dan sonra) aynı komutla devam et.")
-            return
-    run.jsave(STATE, state)
+    st = run.jload(STATE, {})
+    its = [i for i in items() if i["id"] in st or i["id"] in OLD or i["order"] <= cfg.get("yt", {}).get("backfill_max_order", 0)]
+    upload_all(its, st, cfg, a.dry)
+    comment_all(its, st, cfg, a.dry)
+    if not a.dry:
+        run.jsave(STATE, st)
 
 
 if __name__ == "__main__":

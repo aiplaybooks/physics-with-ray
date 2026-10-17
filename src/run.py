@@ -289,7 +289,9 @@ def main():
         rec["posted_utc"] = now.strftime("%Y-%m-%dT%H:%M:%SZ")
         posts.append(rec)
         q.remove(item)
-        for f in (item["file"], item.get("cover")):
+        sched = jload(os.path.join(ROOT, "state", "yt_schedule.json"), {})
+        yt_wait = item["order"] <= cfg.get("yt", {}).get("backfill_max_order", 0) and not sched.get(item["id"], {}).get("done")
+        for f in () if yt_wait else (item["file"], item.get("cover")):  # YouTube'a henüz yüklenmediyse dosya kalsın
             if f:
                 try:
                     os.remove(os.path.join(QDIR, f))

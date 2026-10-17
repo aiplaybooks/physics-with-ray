@@ -80,56 +80,5 @@
   "video_id": "4Lvp3Rhk74Y",
   "done": true
  },
- "10_video11_light_sound": {
-  "publish_at": "2026-10-22T19:40:00Z",
-  "steps": []
- },
- "11_video12_reflection": {
-  "publish_at": "2026-10-23T01:00:00Z",
-  "steps": []
- },
- "12_video13_refraction": {
-  "publish_at": "2026-10-23T19:40:00Z",
-  "steps": []
- },
- "13_video14_rainbow": {
-  "publish_at": "2026-10-24T01:00:00Z",
-  "steps": []
- },
- "14_video15_static": {
-  "publish_at": "2026-10-24T19:40:00Z",
-  "steps": []
- },
- "15_video16_magnetism": {
-  "publish_at": "2026-10-25T01:00:00Z",
-  "steps": []
- },
- "16_video17_gravity": {
-  "publish_at": "2026-10-25T19:40:00Z",
-  "steps": []
- },
- "17_video18_circular_motion": {
-  "publish_at": "2026-10-26T01:00:00Z",
-  "steps": []
- },
- "18_video19_buoyancy": {
-  "publish_at": "2026-10-26T19:40:00Z",
-  "steps": []
- },
- "19_video20_friction": {
-  "publish_at": "2026-10-27T01:00:00Z",
-  "steps": []
- },
- "20_video21_momentum": {
-  "publish_at": "2026-10-27T19:40:00Z",
-  "steps": []
- },
- "21_video22_levers": {
-  "publish_at": "2026-10-28T01:00:00Z",
-  "steps": []
- },
- "22_video23_relativity": {
-  "publish_at": "2026-10-28T19:40:00Z",
-  "steps": []
- }
+ "_meta": {}
 }

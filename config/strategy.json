@@ -31,7 +31,8 @@
   "Which part surprised you most? 👇"
  ],
  "yt": {
-  "playlist_id": "PLLc8eWcbq6JE"
+  "playlist_id": "PLLc8eWcbq6JE",
+  "backfill_max_order": 22
  },
  "support": {
   "yt": "☕ Support Physics With Ray: https://buymeacoffee.com/physicswithray",
