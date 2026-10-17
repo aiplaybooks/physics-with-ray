@@ -1,20 +1,5 @@
 [
  {
-  "order": 6,
-  "id": "06_video7_heat",
-  "file": "06_video7_heat.mp4",
-  "hook": "Why does a hot drink cool down but never heat up by itself? ☕",
-  "body": "Ray explains heat and temperature, and why heat always flows from hot to cold. Save this for your next coffee break.",
-  "cover": "06_video7_heat.png",
-  "tags": [
-   "#heattransfer",
-   "#thermodynamics",
-   "#sciencefacts"
-  ],
-  "first_comment": "What's the longest your coffee has ever stayed hot? ☕👇",
-  "yt_id": "2qGDSA7yuYM"
- },
- {
   "order": 7,
   "id": "07_video8_electricity",
   "file": "07_video8_electricity.mp4",
