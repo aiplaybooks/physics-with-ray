@@ -238,6 +238,10 @@ def main():
         networks = {n: n == a.only for n in NETS}
     q = jload(QFILE, [])
     posts = jload(POSTS, [])
+    for iid, st in jload(os.path.join(ROOT, "state", "yt_schedule.json"), {}).items():  # YouTube'a zamanlananı tekrar yükleme
+        for i in q:
+            if i["id"] == iid and st.get("done"):
+                i["yt_id"] = st["video_id"]
     now = dt.datetime.now(dt.timezone.utc)
     pend = pending(q, cfg)
     if not pend:

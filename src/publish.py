@@ -94,23 +94,27 @@ def _yt_token():
 YT = "https://www.googleapis.com/youtube/v3"
 
 
-def yt_fields(title, description, tags=(), privacy="public"):
+def yt_fields(title, description, tags=(), privacy="public", publish_at=None):
     """Kanal ayarları: Education, English, ABD, yapay zekâ içeriği evet, ücretli tanıtım yok."""
-    return {"snippet": {"title": title[:100], "description": description[:4900], "tags": list(tags), "categoryId": "27",
+    meta = {"snippet": {"title": title[:100], "description": description[:4900], "tags": list(tags), "categoryId": "27",
                         "defaultLanguage": "en", "defaultAudioLanguage": "en"},
             "status": {"privacyStatus": privacy, "selfDeclaredMadeForKids": False, "embeddable": True, "publicStatsViewable": True,
                        "license": "youtube", "containsSyntheticMedia": True,
                        "paidProductPlacementDetails": {"hasPaidProductPlacement": False}},
             "recordingDetails": {"location": {"latitude": 39.8283, "longitude": -98.5795}, "locationDescription": "United States"}}
+    if publish_at:
+        meta["status"]["privacyStatus"] = "private"
+        meta["status"]["publishAt"] = publish_at
+    return meta
 
 
-def yt_short(path, title, description, tags=(), privacy="public"):
+def yt_short(path, title, description, tags=(), privacy="public", publish_at=None):
     """YouTube Shorts yükler (resumable upload). Dönen değer video id."""
     auth = {"Authorization": f"Bearer {_yt_token()}"}
     r = requests.post("https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status,recordingDetails",
                       headers={**auth, "X-Upload-Content-Type": "video/mp4",
                                "X-Upload-Content-Length": str(os.path.getsize(path))},
-                      json=yt_fields(title, description, tags, privacy))
+                      json=yt_fields(title, description, tags, privacy, publish_at))
     if r.status_code >= 400:
         raise RuntimeError(f"YT init -> {r.status_code}: {r.text[:400]}")
     with open(path, "rb") as f:
