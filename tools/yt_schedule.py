@@ -1,4 +1,4 @@
-"""YouTube zamanlayıcı: Video 2-23'ü yükler, yayın saatlerini YouTube içinde zamanlar (günde 2: 04:00 ve 22:40 TR) ve yayına
+"""YouTube zamanlayıcı: Video 2-23'ü yükler, yayın saatlerini YouTube içinde zamanlar (günde 2: 04:00 ve 22:00 TR) ve yayına
 giren videolara ilk yorumu atar. GitHub Actions her 30 dk çalıştırır (.github/workflows/yt.yml); elle de çalışır.
 
 python tools/yt_schedule.py --dry    # planı yazdırır
@@ -21,7 +21,7 @@ import run  # noqa: E402
 STATE = os.path.join(ROOT, "state", "yt_schedule.json")
 V = os.path.join(ROOT, "vector", "cikti")
 K = os.path.join(V, "kapak")
-SLOTS_UTC = [(1, 0), (19, 40)]  # 04:00 ve 22:40 TR
+SLOTS_UTC = [(1, 0), (19, 0)]  # 04:00 ve 22:00 TR
 FMT = "%Y-%m-%dT%H:%M:%SZ"
 RETRY_HOURS = 6
 MIN_LEAD = dt.timedelta(minutes=20)

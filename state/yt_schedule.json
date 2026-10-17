@@ -9,7 +9,7 @@
   "done": true
  },
  "02_video3_inertia": {
-  "publish_at": "2026-10-18T19:40:00Z",
+  "publish_at": "2026-10-18T19:00:00Z",
   "steps": [
    "thumb",
    "playlist"
@@ -27,7 +27,7 @@
   "done": true
  },
  "04_video5_third_law": {
-  "publish_at": "2026-10-19T19:40:00Z",
+  "publish_at": "2026-10-19T19:00:00Z",
   "steps": [
    "thumb",
    "playlist"
@@ -45,7 +45,7 @@
   "done": true
  },
  "06_video7_heat": {
-  "publish_at": "2026-10-20T19:40:00Z",
+  "publish_at": "2026-10-20T19:00:00Z",
   "steps": [
    "thumb",
    "playlist"
@@ -63,7 +63,7 @@
   "done": true
  },
  "08_video9_waves": {
-  "publish_at": "2026-10-21T19:40:00Z",
+  "publish_at": "2026-10-21T19:00:00Z",
   "steps": [
    "thumb",
    "playlist"

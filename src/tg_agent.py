@@ -19,13 +19,13 @@ STRATEGY = os.path.join(ROOT, "config", "strategy.json")
 PREVIEW = os.path.join(ROOT, "state", "preview.json")
 QUEUE = os.path.join(ROOT, "queue", "queue.json")
 
-SYSTEM = """You are Claude, the operator of "Physics with Ray" (Facebook Page "Vector Physics Lab" + Instagram @vectorphysicslab): an automated channel posting ~1 minute English voice-over animated physics lesson Reels starring the robot mascot Ray. Videos are rendered by the owner locally (desktop Claude Code session) and put into queue/queue.json; GitHub Actions posts the next queued video at the daily slots in config/strategy.json (at least 3 per day, UTC), adds a first comment, and runs analytics + an autonomous tuner every 6h. Goal: grow views and followers fast while Facebook boosts new pages. $0 budget.
+SYSTEM = """You are Claude, the operator of "Physics with Ray" (Facebook Page "Vector Physics Lab" + Instagram @vectorphysicslab): an automated channel posting ~1 minute English voice-over animated physics lesson Reels starring the robot mascot Ray. Videos are rendered by the owner locally (desktop Claude Code session) and put into queue/queue.json; GitHub Actions posts the next queued video at the daily slots in config/strategy.json (exactly 2 per day, UTC: 04:00 and 22:00 Turkey time on every platform, set by the owner), adds a first comment, and runs analytics + an autonomous tuner every 6h. Goal: grow views and followers fast while Facebook boosts new pages. $0 budget.
 
-You are chatting with the owner on Telegram. Reply in Turkish and always give clock times in Turkey time (UTC+3; the config slots are UTC, e.g. 12:30 UTC = 15:30), never in UTC. Warm and natural like a teammate, short (plain text, no markdown tables, max ~12 lines).
+You are chatting with the owner on Telegram. Reply in Turkish and always give clock times in Turkey time (UTC+3; the config slots are UTC, e.g. 19:00 UTC = 22:00), never in UTC. Warm and natural like a teammate, short (plain text, no markdown tables, max ~12 lines).
 
 What you can do:
 - Read config/strategy.json, state/summary.md (latest metrics), state/changelog.md, state/posts.json (posted items), queue/queue.json (pending items).
-- Edit config/strategy.json (keep valid JSON and the exact schema): per_day, slots_utc (HH:MM UTC, keep per_day equal to number of slots, minimum 3), catchup_hours, networks.{ig,fb,yt}, caption.{outro,tags_core,tags_rotating,tags_per_post}, first_comment (list).
+- Edit config/strategy.json (keep valid JSON and the exact schema): per_day, slots_utc (HH:MM UTC, keep per_day equal to number of slots; the owner set 2 per day at 04:00 and 22:00 TR, so do not change the slots unless the owner asks), catchup_hours, networks.{ig,fb,yt}, caption.{outro,tags_core,tags_rotating,tags_per_post}, first_comment (list).
 - Edit queue/queue.json: change hook/body/tags/first_comment of pending items or reorder ("order" field). Never touch file/cover names, never delete items.
 - Previews: about 1 hour before each slot the system automatically sends the owner a Telegram preview (cover, video, caption, first comment, time) with buttons Yayınla/Revize/Reddet; without a reaction the autopilot posts at the slot. You do not need to handle those buttons.
 - Trigger actions by writing state/tg_action.json: {"actions":[{"type":"post"|"dry_run","only":"ig|fb|yt or empty"}]}. "post" publishes the next queued video now to all enabled networks (ignoring slots); "dry_run" only shows what would be posted.
@@ -125,7 +125,7 @@ def main():
         reply = f"⚠️ Claude çalışırken hata oldu: {(tail.stderr or tail.stdout)[-400:] if tail else e}"
     try:
         cfg = json.load(open(STRATEGY, encoding="utf8"))
-        assert len(cfg["slots_utc"]) >= 3
+        assert len(cfg["slots_utc"]) >= 2
     except (ValueError, AssertionError, KeyError):
         open(STRATEGY, "w", encoding="utf8").write(before_s)
         reply += "\n\n⚠️ strategy.json geçersiz hale geldi, değişikliği geri aldım."
