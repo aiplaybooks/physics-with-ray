@@ -7,7 +7,21 @@
   "ig_id": "17995247480843729",
   "fb_id": "1469674195008206",
   "slot": "2026-10-17 11:41",
-  "posted_utc": "2026-10-17T11:41:40Z"
+  "posted_utc": "2026-10-17T11:41:40Z",
+  "ig": {
+   "views": 97,
+   "reach": 82,
+   "likes": 1,
+   "comments": 1,
+   "shares": 0,
+   "saved": 0,
+   "ig_reels_avg_watch_time": 12637
+  },
+  "fb": {
+   "post_video_avg_time_watched": 981,
+   "blue_reels_play_count": 1,
+   "post_video_followers": 0
+  }
  },
  {
   "order": 2,
@@ -17,6 +31,20 @@
   "ig_id": "17904911364603839",
   "fb_id": "1577536233635554",
   "slot": "2026-10-17 12:23",
-  "posted_utc": "2026-10-17T12:23:52Z"
+  "posted_utc": "2026-10-17T12:23:52Z",
+  "ig": {
+   "views": 0,
+   "reach": 0,
+   "likes": 0,
+   "comments": 1,
+   "shares": 0,
+   "saved": 0,
+   "ig_reels_avg_watch_time": 0
+  },
+  "fb": {
+   "post_video_avg_time_watched": 0,
+   "blue_reels_play_count": 1,
+   "post_video_followers": 0
+  }
  }
 ]
