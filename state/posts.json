@@ -230,5 +230,22 @@
    "blue_reels_play_count": 0,
    "post_video_followers": 0
   }
+ },
+ {
+  "order": 9,
+  "id": "09_video10_doppler",
+  "hook": "Why does an ambulance siren sound high coming toward you and low going away? 🚑",
+  "body": "Ray explains the Doppler effect: motion squeezes and stretches waves, so the pitch changes. It works for light too. Send this to a friend who loves cars.",
+  "tags": [
+   "#dopplereffect",
+   "#soundwaves",
+   "#sciencefacts"
+  ],
+  "first_comment": "Where have you noticed this? Sirens, race cars, trains? 👇",
+  "yt_id": "4Lvp3Rhk74Y",
+  "ig_id": "18105976019341238",
+  "fb_id": "4140024806291978",
+  "slot": "2026-10-18 19:00",
+  "posted_utc": "2026-10-18T19:12:10Z"
  }
 ]
