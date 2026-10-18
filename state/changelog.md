@@ -32,3 +32,9 @@
 - Comments remain exactly 1 on every post (our own seed first_comment) and shares are 0 across the board — no organic engagement signal yet to differentiate hook/tag/comment variants.
 - No publish errors in posts.json; all 8 entries have valid ig_id/fb_id — no KOD fix needed.
 - Kept caption.outro, tags_core, tags_rotating, tags_per_post, first_comment, and slots_utc/per_day unchanged this cycle. Next check: after post #9 (19:00 UTC) lands, compare it against posts 1-8 and look for the first organic comment/share.
+
+## 2026-10-18 18:36 UTC
+- No changes made. Still the exact same 8 posts as the 12:40 UTC check (views up only slightly, e.g. 07_video8_electricity 189→227, 06_video7_heat 154 stable) — the 19:00 UTC slot (post #9) has not fired yet at 18:36, so there's still zero new data to evaluate the tags_per_post=6/#physicslessons/4th first_comment change from 00:47 UTC.
+- Comments remain exactly 1 on every post (our own seed first_comment) and shares are 0 across all 8 posts — no organic engagement signal yet, same pattern as every prior check.
+- No publish errors in posts.json; all 8 entries have valid ig_id/fb_id — no KOD fix needed.
+- Kept caption.outro, tags_core, tags_rotating, tags_per_post, first_comment, and slots_utc/per_day unchanged. Next check: after post #9 (19:00 UTC today) and ideally post #10 (01:00 UTC tomorrow) land, compare their performance and tag/comment variants against posts 1-8, and watch for the first organic (non-seed) comment or share as the real engagement signal.
