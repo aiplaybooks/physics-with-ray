@@ -5,7 +5,7 @@
   "01:00",
   "19:00"
  ],
- "catchup_hours": 0,
+ "catchup_hours": 1,
  "networks": {
   "ig": false,
   "fb": false,

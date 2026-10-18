@@ -107,6 +107,19 @@ def due_slot(cfg, posts, now):
     return None
 
 
+def posts_today(posts, q, now):
+    """Bugün (UTC) başlamış yayın sayısı: biten videolar + bir ağa gitmiş yarım videolar. Slot varsa slot günü, yoksa yayın anı sayılır."""
+    day = now.strftime("%Y-%m-%d")
+    n = 0
+    for p in posts:
+        k = p.get("slot") or p.get("posted_utc", "")
+        n += str(k)[:10] == day
+    for i in q:
+        if i.get("ig_id") or i.get("fb_id"):
+            n += str(i.get("slot") or "")[:10] == day
+    return n
+
+
 def slot_dt(key):
     return dt.datetime.strptime(key, "%Y-%m-%d %H:%M").replace(tzinfo=dt.timezone.utc)
 
@@ -258,7 +271,7 @@ def main():
         print("önizleme gönderildi:", pend[0]["id"], nxt[0])
         return
     # 1) yarım kalan (bir ağa gitmiş, diğerine gitmemiş) video: eksik ağı tamamla, slot harcama
-    partial = [i for i in pend if any(i.get(n + "_id") for n in NETS)]
+    partial = [i for i in pend if i.get("slot") and any(i.get(n + "_id") for n in ("ig", "fb"))]  # YouTube'a yüklenmiş olmak yayın sayılmaz
     if a.item:
         match = [i for i in pend if i["id"] == a.item]
         if not match:
@@ -276,6 +289,10 @@ def main():
         if not a.force and held_for_revision(item):
             print("revize bekleniyor, yayın askıda:", item["id"])
             return
+    per_day = cfg.get("per_day", 2)
+    if item not in partial and posts_today(posts, q, now) >= per_day:  # yeni yayın başlatan her yol (slot, --force, --item) buradan geçer
+        print(f"günlük sınır doldu ({per_day}); yeni yayın yok:", item["id"])
+        return
     post_item(item, cfg, networks, a.dry_run)
     if a.dry_run:
         return
