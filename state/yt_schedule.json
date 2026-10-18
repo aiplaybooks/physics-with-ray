@@ -6,7 +6,8 @@
    "playlist"
   ],
   "video_id": "U3x-iudU32A",
-  "done": true
+  "done": true,
+  "commented": true
  },
  "02_video3_inertia": {
   "publish_at": "2026-10-18T19:00:00Z",
