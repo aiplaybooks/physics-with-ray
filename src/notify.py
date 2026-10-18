@@ -30,7 +30,7 @@ def text(msg, markup=None):
 
 
 def preview(item_id, mp4, cover, hook, body):
-    """Kapak + video + (caption, ilk yorum, saat) mesajı; altında Yayınla / Revize / Reddet düğmeleri."""
+    """Kapak + video + (caption, ilk yorum, saat) mesajı; altında Onayla / Revize / Reddet düğmeleri."""
     if not enabled():
         return
     try:
@@ -43,7 +43,7 @@ def preview(item_id, mp4, cover, hook, body):
     except requests.RequestException as e:
         print("telegram önizleme medyası:", e)
     text(body, {"inline_keyboard": [[
-        {"text": "✅ Yayınla", "callback_data": f"ok:{item_id}"},
+        {"text": "✅ Onayla", "callback_data": f"ok:{item_id}"},
         {"text": "✏️ Revize", "callback_data": f"rv:{item_id}"},
         {"text": "❌ Reddet", "callback_data": f"no:{item_id}"},
     ]]})

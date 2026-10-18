@@ -81,6 +81,9 @@ def upload_all(its, st, cfg, dry):
             why = "bloklu" if blocked else "dosya yok" if not os.path.exists(it["mp4"]) else "bekliyor"
             print(f"{n:2d}. {it['id']:28s} {why}  {title}")
             continue
+        if "video_id" not in e and it["id"] not in OLD and not run.is_approved(it["id"]):
+            print(f"{n:2d}. {it['id']:28s} onay bekliyor (Telegram ✅ Onayla)")
+            continue
         if "video_id" not in e:
             e = st[it["id"]] = {"publish_at": next_slot(max(last, now_utc() + MIN_LEAD) if last > now_utc() else now_utc() + MIN_LEAD).strftime(FMT), "steps": []}
         try:

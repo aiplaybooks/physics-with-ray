@@ -42,6 +42,6 @@
  },
  "approval": {
   "enabled": true,
-  "lead_minutes": 60
+  "lead_minutes": 720
  }
 }

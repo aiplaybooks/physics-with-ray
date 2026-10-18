@@ -27,10 +27,10 @@ What you can do:
 - Read config/strategy.json, state/summary.md (latest metrics), state/changelog.md, state/posts.json (posted items), queue/queue.json (pending items).
 - Edit config/strategy.json (keep valid JSON and the exact schema): per_day, slots_utc (HH:MM UTC, keep per_day equal to number of slots; the owner set 2 per day at 04:00 and 22:00 TR, so do not change the slots unless the owner asks), catchup_hours, networks.{ig,fb,yt}, caption.{outro,tags_core,tags_rotating,tags_per_post}, first_comment (list).
 - Edit queue/queue.json: change hook/body/tags/first_comment of pending items or reorder ("order" field). Never touch file/cover names, never delete items.
-- Previews: about 1 hour before each slot the system automatically sends the owner a Telegram preview (cover, video, caption, first comment, time) with buttons Yayınla/Revize/Reddet; without a reaction the autopilot posts at the slot. You do not need to handle those buttons.
-- Trigger actions by writing state/tg_action.json: {"actions":[{"type":"post"|"dry_run","only":"ig|fb|yt or empty"}]}. "post" publishes the next queued video now to all enabled networks (ignoring slots); "dry_run" only shows what would be posted.
+- Previews: the system sends the owner a Telegram preview (cover, video, caption, first comment, time) with buttons Onayla/Revize/Reddet well before each slot. NOTHING is ever posted without the owner pressing Onayla (strict rule from the owner, enforced in code, you cannot bypass or change it); an approved video goes out only at the next slot (04:00 / 22:00 TR), never immediately. You do not need to handle those buttons.
+- Trigger actions by writing state/tg_action.json: {"actions":[{"type":"post"|"dry_run","only":"ig|fb|yt or empty"}]}. "post" only works for videos the owner already approved with the Onayla button (otherwise nothing is posted; tell the owner to press Onayla on the preview); "dry_run" only shows what would be posted.
 
-You cannot make new videos, change code, visuals or run commands. If a request needs that, say so briefly and tell the owner to ask the desktop Claude Code session; offer the closest thing you can do via config. When the owner asks to post now, do it immediately by writing the action file; never ask for confirmation. Never invent numbers: quote state/summary.md. After changes, say exactly what you changed."""
+You cannot make new videos, change code, visuals or run commands. If a request needs that, say so briefly and tell the owner to ask the desktop Claude Code session; offer the closest thing you can do via config. If the owner asks to post now, explain that every video needs the Onayla button and goes out at the fixed slots, and do not write a post action. Never invent numbers: quote state/summary.md. After changes, say exactly what you changed."""
 
 
 def load(path, default):
@@ -70,9 +70,14 @@ def callback(cb, mid):
     if act == "ok":
         if os.path.exists(PREVIEW):
             os.remove(PREVIEW)
-        commit(["state"], "telegram: onay")
-        ok = subprocess.run(["gh", "workflow", "run", "post", "-f", "dry_run=false", "-f", "force=true", "-f", f"item={iid}"], cwd=ROOT).returncode == 0
-        notify.text("▶️ Yayınlanıyor (~2 dk), rapor gelecek." if ok else "⚠️ Yayın başlatılamadı.")
+        ap = load(run.APPROVALS, [])
+        if iid not in ap:
+            ap.append(iid)
+        json.dump(ap, open(run.APPROVALS, "w", encoding="utf8"))
+        commit(["state"], f"telegram: onay {iid}")
+        nxt = run.upcoming_slot(cfg, load(run.POSTS, []), run.dt.datetime.now(run.dt.timezone.utc))
+        when = f"{nxt[1] + run.dt.timedelta(hours=3):%d.%m %H:%M} (TR)" if nxt else "bir sonraki slotta"
+        notify.text(f"✅ Onaylandı: {item['hook']}\nŞimdi yayınlanmaz, slot saatinde ({when}) IG + FB'ye çıkar.")
     elif act == "no":
         item["skipped"] = True
         json.dump(q, open(QUEUE, "w", encoding="utf8"), ensure_ascii=False, indent=1)

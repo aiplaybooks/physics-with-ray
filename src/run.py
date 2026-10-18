@@ -4,7 +4,7 @@ python src/run.py              # normal (GitHub Actions her 30 dk çalıştırı
 python src/run.py --dry-run    # ne yapacağını yazar, yayınlamaz
 python src/run.py --force      # slot beklemeden sıradakini şimdi yayınla
 python src/run.py --only ig    # tek ağ (ig|fb|yt)
-python src/run.py --item ID    # kuyruktaki belirli videoyu şimdi yayınla (Telegram "Yayınla" düğmesi)
+python src/run.py --item ID    # kuyruktaki belirli videoyu şimdi yayınla (sadece Telegram'da ✅ Onayla'ya basılmış video)
 python src/run.py --preview    # sıradaki video için Telegram onay önizlemesini şimdi gönder
 """
 import sys as _s
@@ -23,6 +23,7 @@ QDIR = os.path.join(ROOT, "queue")
 QFILE = os.path.join(QDIR, "queue.json")
 POSTS = os.path.join(ROOT, "state", "posts.json")
 PREVIEW = os.path.join(ROOT, "state", "preview.json")
+APPROVALS = os.path.join(ROOT, "state", "approvals.json")  # Telegram'da ✅ Onayla'ya basılan video id'leri (sadece düğme yazar)
 MAX_TRIES = 3
 
 
@@ -137,6 +138,11 @@ def upcoming_slot(cfg, posts, now):
     return None
 
 
+def is_approved(iid):
+    """Yayın için sahibin onayı şart: config'den kapatılamaz, --force/--item de atlayamaz."""
+    return iid in jload(APPROVALS, [])
+
+
 def send_preview(item, cfg, nxt):
     """Telegram'a onay önizlemesi gönder (kapak, video, caption, ilk yorum, saat + düğmeler)."""
     import notify
@@ -145,18 +151,18 @@ def send_preview(item, cfg, nxt):
     cover = os.path.join(QDIR, item["cover"]) if item.get("cover") and os.path.exists(os.path.join(QDIR, item["cover"])) else None
     tr = t + dt.timedelta(hours=3)
     body = (f"Caption:\n{build_caption(item, cfg)}\n\n💬 İlk yorum: {comment_text(first_comment(item, cfg), cfg, 'fb')}\n\n"
-            f"🤖 Otopilot onaylayacak: {tr:%d.%m %H:%M}'de IG + FB'ye yayınlanacak. "
-            f"Müdahale etmezsen o saatte kendiliğinden çıkar.")
+            f"⏰ Slot: {tr:%d.%m %H:%M} (TR). ✅ Onayla'ya basmazsan bu video YAYINLANMAZ. "
+            f"Onaylarsan o saatte IG + FB'ye çıkar.")
     notify.preview(item["id"], mp4, cover, item["hook"], body)
     jsave(PREVIEW, {"item": item["id"], "slot": key, "status": "pending"})
 
 
 def maybe_preview(cfg, item, posts, now, dry):
     ap = cfg.get("approval", {})
-    if not ap.get("enabled") or item.get("ig_id") or item.get("fb_id"):
+    if item.get("ig_id") or item.get("fb_id") or is_approved(item["id"]):
         return
     nxt = upcoming_slot(cfg, posts, now)
-    if not nxt or nxt[1] - now > dt.timedelta(minutes=ap.get("lead_minutes", 60)):
+    if not nxt or nxt[1] - now > dt.timedelta(minutes=ap.get("lead_minutes", 720)):
         return
     cur = jload(PREVIEW, {})
     if cur.get("item") == item["id"] and cur.get("slot") == nxt[0]:
@@ -236,6 +242,18 @@ def post_item(item, cfg, networks, dry):
     notify.text("\n".join(lines))
 
 
+def warn_no_approval(slot, item, dry):
+    """Slot geldi ama onaylı video yok: yayın yapılmaz, her slot için bir kez Telegram'dan haber verilir."""
+    print("onaylı video yok, slot atlandı:", slot, item["id"])
+    f = os.path.join(ROOT, "state", "noapproval.json")
+    if dry or jload(f, {}).get("slot") == slot:
+        return
+    import notify
+    notify.text(f"⚠️ {slot_dt(slot) + dt.timedelta(hours=3):%d.%m %H:%M} (TR) slotunda onaylı video yoktu, yayın YAPILMADI.\n"
+                f"Sıradaki: {item['hook']}\nÖnizleme mesajındaki ✅ Onayla'ya basarsan sonraki slotta çıkar.")
+    jsave(f, {"slot": slot})
+
+
 def main():
     load_env()
     ap = argparse.ArgumentParser()
@@ -272,20 +290,31 @@ def main():
         return
     # 1) yarım kalan (bir ağa gitmiş, diğerine gitmemiş) video: eksik ağı tamamla, slot harcama
     partial = [i for i in pend if i.get("slot") and any(i.get(n + "_id") for n in ("ig", "fb"))]  # YouTube'a yüklenmiş olmak yayın sayılmaz
+    approved = [i for i in pend if is_approved(i["id"])]
     if a.item:
         match = [i for i in pend if i["id"] == a.item]
         if not match:
             sys.exit("bekleyen öğe bulunamadı: " + a.item)
         item, slot = match[0], "force"
+        if not (is_approved(item["id"]) or item in partial):
+            print("onaysız video yayınlanmaz:", item["id"])
+            return
     elif partial:
         item, slot = partial[0], None
     else:
-        item = pend[0]
         slot = "force" if a.force else due_slot(cfg, posts, now)
         if not slot:
-            maybe_preview(cfg, item, posts, now, a.dry_run)
-            print("slot vakti değil; sıradaki:", item["file"], "| bekleyen:", len(pend))
+            if not approved:
+                maybe_preview(cfg, pend[0], posts, now, a.dry_run)
+            print("slot vakti değil; sıradaki:", pend[0]["file"], "| bekleyen:", len(pend), "| onaylı:", len(approved))
             return
+        if not approved:
+            if slot == "force":
+                print("onaysız video yayınlanmaz:", pend[0]["id"])
+            else:
+                warn_no_approval(slot, pend[0], a.dry_run)
+            return
+        item = approved[0]
         if not a.force and held_for_revision(item):
             print("revize bekleniyor, yayın askıda:", item["id"])
             return
