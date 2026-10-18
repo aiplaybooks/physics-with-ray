@@ -12,3 +12,10 @@
 - Engagement is uniformly low (1 like, 1 comment, 0 shares on almost every post) and FB views are near-zero (0-1 each) — not yet a clear signal to change tags/outro/first_comment, just a sign the page is very new.
 - No publish errors in posts.json; all 4 posts have valid ig_id/fb_id, so no KOD fix needed this cycle.
 - Next check: wait for 21:00 slot data and at least 6-8 total posts, then compare views/avg-watch-time by slot (12:30 vs 17:00 vs 21:00) and by hook style before touching slots_utc or tags.
+
+## 2026-10-18 00:47 UTC
+- 8 posts now (just above the ~6 threshold), views 83-239, but comments are exactly 1 on every single post (that's just our own auto-posted first_comment — zero organic replies so far) and shares are 0 everywhere, so there's no real engagement signal yet to differentiate hook styles or hashtag topics; kept slots_utc/per_day untouched per owner's fixed schedule.
+- Raised tags_per_post from 5 to 6 and added "#physicslessons" to tags_rotating — still within the 5-8 niche-relevant range, aimed at slightly wider discovery while FB is boosting the new page, low-risk since it doesn't touch content/timing.
+- Added a 4th first_comment prompt ("Yes or no: did you already know this one?") — a binary-choice variant to test against the open-ended ones, since none of the 3 existing prompts have produced any organic replies yet (0 comments beyond our own seed comment across all 8 posts).
+- Did not touch outro, tags_core, or slots — no post has enough individual-variant data (each hook/tag/comment variant has only 1 data point) to justify bigger moves; avg watch time (4.5-12.8s on ~60s videos) looks low across the board but that's a content/pacing issue, not something fixable via strategy.json.
+- Next check: once each first_comment variant and the new #physicslessons tag have appeared on 2-3+ posts, compare organic comment counts and views between variants; also watch whether avg watch time improves or stays flat (would point to a content-level fix outside this config).

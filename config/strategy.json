@@ -20,14 +20,16 @@
   "tags_rotating": [
    "#learnphysics",
    "#sciencefacts",
-   "#stemeducation"
+   "#stemeducation",
+   "#physicslessons"
   ],
-  "tags_per_post": 5
+  "tags_per_post": 6
  },
  "first_comment": [
   "What's your guess? Drop it below 👇",
   "Did you get it right before watching? Tell us 👇",
-  "Which part surprised you most? 👇"
+  "Which part surprised you most? 👇",
+  "Yes or no: did you already know this one? 👇"
  ],
  "yt": {
   "playlist_id": "PLLc8eWcbq6JE",
