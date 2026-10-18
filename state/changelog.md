@@ -19,3 +19,9 @@
 - Added a 4th first_comment prompt ("Yes or no: did you already know this one?") — a binary-choice variant to test against the open-ended ones, since none of the 3 existing prompts have produced any organic replies yet (0 comments beyond our own seed comment across all 8 posts).
 - Did not touch outro, tags_core, or slots — no post has enough individual-variant data (each hook/tag/comment variant has only 1 data point) to justify bigger moves; avg watch time (4.5-12.8s on ~60s videos) looks low across the board but that's a content/pacing issue, not something fixable via strategy.json.
 - Next check: once each first_comment variant and the new #physicslessons tag have appeared on 2-3+ posts, compare organic comment counts and views between variants; also watch whether avg watch time improves or stays flat (would point to a content-level fix outside this config).
+
+## 2026-10-18 06:40 UTC
+- No changes made. Still the same 8 posts as the 00:47 UTC check (views just ticked up slightly, 105-247 vs 83-239, as IG counters continue accruing on existing posts) — no new post has published since the last slot, so there's no fresh data to evaluate the tags_per_post=6/#physicslessons/4th first_comment change made 6 hours ago.
+- Next slot is 19:00 UTC; the 01:00 UTC slot already passed before this check ran. Kept caption.outro, tags_core, tags_rotating, tags_per_post, first_comment, and slots_utc/per_day untouched this cycle.
+- No publish errors in posts.json (all 8 entries have valid ig_id/fb_id) — no KOD fix needed.
+- Next check: after the 19:00 UTC post lands (post #9), compare its tags/first_comment variant performance against posts 1-8, and keep watching for the first organic (non-seed) comment as the real engagement signal.
