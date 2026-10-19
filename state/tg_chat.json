@@ -53,5 +53,10 @@
   "t": "2026-10-17 21:15",
   "u": "Tüm paylaşımları durdur.",
   "a": "Tamam, durdurdum. `config/strategy.json`'da `networks` içindeki ig, fb, yt üçünü de `false` yaptım — artık otopilot hiçbir platforma otomatik gönderim yapmayacak, slot zamanı gelse de atlanacak.\n\nÖnemli not: Bu benim yapabildiğim en sağlam durdurma yolu (config üzerinden). Ama az önce bahsettiğim YT backfill scripti ayrı bir mekanizma olabilir ve `yt: false` olmasına rağmen çalışmış görünüyordu — o yüzden masaüstü Claude Code session'ına da bu backfill/manuel tetikleme işini tamamen durdurmasını söylemen lazım, benim kontrolümde değil. Hazır olduğunda tekrar açmamı istersen söyle."
+ },
+ {
+  "t": "2026-10-19 06:56",
+  "u": "bana analizi video bazında değil kanal bazında ver bundan sonra.",
+  "a": "Şu anki verileri kanal bazında topladım (state/summary.md'deki video tablosundan):\n\n📊 Toplam (10 post):\n- IG: 1616 views, FB: 9 views → toplam 1625 views\n- Takipçi: IG 6, FB 0\n- Beğeni 26, yorum 10, kaydetme 11, paylaşım 0\n\nNot: summary.md otomatik rapor videobazında bir tablo üretiyor, bu kod tarafında (analytics scripti) — ben config'ten değiştiremem. Bundan sonra \"analiz\" dediğinde ben sana hep bu şekilde kanal bazlı özetleyeceğim. Ama otomatik raporun kendisini (6 saatte bir gelen) kanal bazlı formata çevirmek istersen, bunu masaüstü Claude Code session'ına söylemen gerekiyor — script değişikliği gerektiriyor."
  }
 ]
