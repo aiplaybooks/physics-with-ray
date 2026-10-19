@@ -1,14 +1,14 @@
-# Summary 2026-10-19 12:47 UTC
-Followers IG 6 + FB 0 = 6 | Views 1640 | Posts 10
+# Summary 2026-10-19 18:45 UTC
+Followers IG 6 + FB 0 = 6 | Views 1651 | Posts 10
 
 | id | hook | views IG/FB | avg watch s IG | likes | cmts | shares | saves |
 |---|---|---|---|---|---|---|---|
 | 01_video2_projectile | Which launch angle sends a ball the fart | 258/2 | 12.5 | 3 | 1 | 0 | 2 |
 | 07_video8_electricity | How does electricity actually get to you | 243/0 | 6.7 | 10 | 1 | 0 | 5 |
 | 03_video4_second_law | Why is it harder to push a heavy cart th | 181/0 | 6.0 | 3 | 1 | 0 | 1 |
-| 09_video10_doppler | Why does an ambulance siren sound high c | 171/0 | 9.2 | 5 | 1 | 0 | 2 |
+| 09_video10_doppler | Why does an ambulance siren sound high c | 176/0 | 9.2 | 5 | 1 | 0 | 2 |
 | 06_video7_heat | Why does a hot drink cool down but never | 165/2 | 8.2 | 3 | 1 | 0 | 1 |
-| 10_video11_light_sound | Why do you see lightning first and only  | 140/0 | 6.7 | 1 | 1 | 0 | 0 |
+| 10_video11_light_sound | Why do you see lightning first and only  | 146/0 | 7.1 | 1 | 1 | 0 | 0 |
 | 08_video9_waves | How does the sound of a guitar reach you | 127/0 | 5.5 | 0 | 1 | 0 | 0 |
 | 04_video5_third_law | When you push a wall, does the wall push | 124/2 | 6.6 | 0 | 1 | 0 | 0 |
 | 02_video3_inertia | Why do you lurch forward when a bus sudd | 114/2 | 7.5 | 1 | 1 | 0 | 0 |
