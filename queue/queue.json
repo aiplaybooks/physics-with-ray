@@ -1,19 +1,5 @@
 [
  {
-  "order": 10,
-  "id": "10_video11_light_sound",
-  "file": "10_video11_light_sound.mp4",
-  "hook": "Why do you see lightning first and only hear thunder seconds later? ⚡",
-  "body": "Ray compares the speed of light and the speed of sound, and shows how to count the distance to a storm. Send this to someone who hates thunderstorms.",
-  "cover": "10_video11_light_sound.png",
-  "tags": [
-   "#speedoflight",
-   "#thunderstorm",
-   "#learnphysics"
-  ],
-  "first_comment": "Next storm: count the seconds between flash and thunder, then tell us your number 👇"
- },
- {
   "order": 11,
   "id": "11_video12_reflection",
   "file": "11_video12_reflection.mp4",
