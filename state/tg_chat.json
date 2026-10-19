@@ -58,5 +58,10 @@
   "t": "2026-10-19 06:56",
   "u": "bana analizi video bazında değil kanal bazında ver bundan sonra.",
   "a": "Şu anki verileri kanal bazında topladım (state/summary.md'deki video tablosundan):\n\n📊 Toplam (10 post):\n- IG: 1616 views, FB: 9 views → toplam 1625 views\n- Takipçi: IG 6, FB 0\n- Beğeni 26, yorum 10, kaydetme 11, paylaşım 0\n\nNot: summary.md otomatik rapor videobazında bir tablo üretiyor, bu kod tarafında (analytics scripti) — ben config'ten değiştiremem. Bundan sonra \"analiz\" dediğinde ben sana hep bu şekilde kanal bazlı özetleyeceğim. Ama otomatik raporun kendisini (6 saatte bir gelen) kanal bazlı formata çevirmek istersen, bunu masaüstü Claude Code session'ına söylemen gerekiyor — script değişikliği gerektiriyor."
+ },
+ {
+  "t": "2026-10-19 16:23",
+  "u": "Tüm paylaşımları 2 günde 1 olarak değiştirelim.",
+  "a": "Config şemasında sadece \"günde kaç slot\" ve \"hangi saatlerde\" var (`per_day` + `slots_utc`) — \"2 günde 1\" gibi gün aralığı (interval) ayarı yok, bunu config'ten yapamıyorum.\n\nBenim config üzerinden yapabileceğim en yakın şey: `per_day`'i 1'e düşürüp tek slot bırakmak (örneğin sadece 22:00 TR) — ama bu \"her gün 1\" olur, \"2 günde 1\" olmaz.\n\nGerçek \"2 günde 1\" (gün aşırı) mantığı için otopilot koduna gün-aralığı kontrolü eklenmesi gerekiyor — bu masaüstü Claude Code session'ına söylenmeli.\n\nİstersen ben şimdilik ara çözüm olarak günde 1 slota düşüreyim mi, yoksa kod değişikliği olana kadar şu anki 2/gün düzeni kalsın mı?"
  }
 ]
