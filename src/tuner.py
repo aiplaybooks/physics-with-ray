@@ -11,13 +11,13 @@ import notify  # noqa: E402
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STRATEGY = os.path.join(ROOT, "config", "strategy.json")
 
-PROMPT = """You are the autonomous growth operator of "Physics with Ray": an Instagram + Facebook Page channel posting ~1 minute animated physics lesson Reels (English voice-over, robot mascot Ray), exactly 2 per day (04:00 and 22:00 Turkey time = 01:00 and 19:00 UTC, set by the owner). Goal: grow views and followers fast while Facebook boosts new pages. The owner does not intervene: you decide.
+PROMPT = """You are the autonomous growth operator of "Physics with Ray": an Instagram + Facebook Page channel posting ~1 minute animated physics lesson Reels (English voice-over, robot mascot Ray), 1 post every 2 days (15:00 Turkey time = 12:00 UTC, set by the owner). Goal: grow views and followers fast while Facebook boosts new pages. The owner does not intervene: you decide.
 
 Now is {now}. Do this:
 1. Read state/summary.md (metrics), state/changelog.md (past changes, may not exist yet), config/strategy.json.
-2. Decide the few changes most likely to raise views, watch time, comments and follows. You may edit: caption.outro, caption.tags_core, caption.tags_rotating, caption.tags_per_post, first_comment (keep 3-6 comment-provoking entries), slots_utc and per_day (keep per_day equal to the number of slots; the owner fixed 2 per day, so leave per_day and slots_utc unchanged). Rules:
+2. Decide the few changes most likely to raise views, watch time, comments and follows. You may edit: caption.outro, caption.tags_core, caption.tags_rotating, caption.tags_per_post, first_comment (keep 3-6 comment-provoking entries), slots_utc, per_day and every_days (the owner fixed 1 post every 2 days, so leave them unchanged). Rules:
    - Judge with data. With fewer than ~6 posts treat differences as noise and change little.
-   - Slots: the owner fixed them at 01:00 and 19:00 UTC; do not change slots_utc or per_day.
+   - Slots: the owner fixed 12:00 UTC every 2 days; do not change slots_utc, per_day or every_days.
    - Hashtags: 5-8 per post, niche-relevant (physics, science education), no banned/spammy tags.
    - Change a few things at a time so effects stay measurable. If nothing is justified, change nothing.
 3. Edit config/strategy.json only (valid JSON, same schema, keep all keys).
@@ -43,7 +43,7 @@ def main():
         print("tuner:", e)
     try:
         cfg = json.load(open(STRATEGY, encoding="utf8"))
-        assert len(cfg["slots_utc"]) >= 2
+        assert len(cfg["slots_utc"]) >= 1
     except (ValueError, AssertionError, KeyError):
         open(STRATEGY, "w", encoding="utf8").write(before)
         report += "\n⚠️ strategy.json bozuldu, değişiklik geri alındı."

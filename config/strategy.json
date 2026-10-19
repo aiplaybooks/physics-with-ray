@@ -1,9 +1,9 @@
 {
- "_note": "Autopilot ayarları. Tuner (claude) hashtag/yorum/slot önerilerini buradan günceller; video içeriğine dokunmaz. | Hafta planı: tools/week_copy.py (IG 5 etiket sınırı: 2 çekirdek + 3 konu). IG+FB aynı slotlarda otopilotla yayınlanır (kapaklı). Günde 2 yayın: 04:00 ve 22:00 TR = 01:00 ve 19:00 UTC (kullanıcı kararı, tuner/ajan değiştirmez).",
- "per_day": 2,
+ "_note": "Autopilot ayarları. Tuner (claude) hashtag/yorum/slot önerilerini buradan günceller; video içeriğine dokunmaz. | Hafta planı: tools/week_copy.py (IG 5 etiket sınırı: 2 çekirdek + 3 konu). IG+FB aynı slotlarda otopilotla yayınlanır (kapaklı). 2 günde 1 yayın: 15:00 TR = 12:00 UTC (kullanıcı kararı 2026-10-19, analitikte en iyi saat; tuner/ajan değiştirmez).",
+ "per_day": 1,
+ "every_days": 2,
  "slots_utc": [
-  "01:00",
-  "19:00"
+  "12:00"
  ],
  "catchup_hours": 1,
  "networks": {

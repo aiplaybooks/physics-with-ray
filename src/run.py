@@ -96,9 +96,19 @@ def pending(q, cfg=None):
             and not i.get("skipped") and os.path.exists(os.path.join(QDIR, i["file"]))]
 
 
+def day_ok(cfg, posts, day):
+    """every_days > 1 ise son yayın gününden every_days gün geçmeden yeni yayın günü yok."""
+    n = cfg.get("every_days", 1)
+    days = [str(p.get("slot") or p.get("posted_utc") or "")[:10] for p in posts]
+    days = [d for d in days if d[:4].isdigit()]
+    return n <= 1 or not days or (day - dt.date.fromisoformat(max(days))).days >= n
+
+
 def due_slot(cfg, posts, now):
     used = {p.get("slot") for p in posts}
     for day in (now.date() - dt.timedelta(days=1), now.date()):
+        if not day_ok(cfg, posts, day):
+            continue
         for s in sorted(cfg["slots_utc"]):
             h, m = map(int, s.split(":"))
             t = dt.datetime(day.year, day.month, day.day, h, m, tzinfo=dt.timezone.utc)
@@ -128,7 +138,10 @@ def slot_dt(key):
 def upcoming_slot(cfg, posts, now):
     """Bir sonraki (henüz kullanılmamış) slot: (anahtar, datetime) ya da None."""
     used = {p.get("slot") for p in posts}
-    for day in (now.date(), now.date() + dt.timedelta(days=1)):
+    for k in range(max(2, cfg.get("every_days", 1) + 1)):
+        day = now.date() + dt.timedelta(days=k)
+        if not day_ok(cfg, posts, day):
+            continue
         for s in sorted(cfg["slots_utc"]):
             h, m = map(int, s.split(":"))
             t = dt.datetime(day.year, day.month, day.day, h, m, tzinfo=dt.timezone.utc)
