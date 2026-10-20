@@ -82,3 +82,10 @@
 - Kept caption.outro, tags_core, tags_rotating, tags_per_post (6), first_comment pool, and slots_utc/per_day/every_days unchanged — no justified move with identical data to the last check.
 - No publish errors in posts.json; all 10 entries have valid ig_id/fb_id — no KOD fix needed.
 - Next check: after post #11 (~2026-10-21 12:00 UTC, first post under the new 2-day cadence) lands, compare its views/avg-watch-time/engagement against this 10-post baseline, and keep watching for the first organic comment/share or FB follower movement.
+
+## 2026-10-20 12:47 UTC
+- Still the exact same 10 posts as the 06:44 UTC check, views unchanged (e.g. 01_video2_projectile 258, 07_video8_electricity 243, 09_video10_doppler 177) — no new post has landed yet, next one expected ~2026-10-21 12:00 UTC under the every_days=2 cadence. No engagement signal change (comments still 1/post seed-only, shares 0, FB followers 0), so no data-driven move this cycle.
+- One non-data-driven fix: caption.outro said "follow for a new physics lesson every day 🚀", but the schedule is now 1 post every 2 days (owner decision, 2026-10-19) — the daily promise was stale and misleading to new followers, so reworded to "follow for a new physics lesson every few days 🚀". Low-risk, doesn't touch tags/timing/content.
+- Left tags_core, tags_rotating, tags_per_post (6), first_comment pool, and slots_utc/per_day/every_days unchanged — no fresh data to justify any variant split.
+- No publish errors in posts.json; all 10 entries have valid ig_id/fb_id — no KOD fix needed.
+- Next check: after post #11 (first under the 2-day cadence) lands, compare it to this 10-post baseline and watch for the first organic comment/share, FB follower movement, and whether the reworded outro affects follow-through rate.
