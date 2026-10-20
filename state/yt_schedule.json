@@ -56,7 +56,8 @@
    "playlist"
   ],
   "video_id": "2qGDSA7yuYM",
-  "done": true
+  "done": true,
+  "commented": true
  },
  "07_video8_electricity": {
   "publish_at": "2026-10-21T01:00:00Z",
