@@ -1,19 +1,5 @@
 [
  {
-  "order": 11,
-  "id": "11_video12_reflection",
-  "file": "11_video12_reflection.mp4",
-  "hook": "Why can you see yourself in a mirror but not in a sheet of paper? 🪞",
-  "body": "Ray explains the law of reflection: the angle in equals the angle out. Smooth surfaces make images, rough ones scatter light.",
-  "cover": "11_video12_reflection.png",
-  "tags": [
-   "#reflection",
-   "#lightphysics",
-   "#stemeducation"
-  ],
-  "first_comment": "Which surface at home is the best mirror that isn't a mirror? 👇"
- },
- {
   "order": 12,
   "id": "12_video13_refraction",
   "file": "12_video13_refraction.mp4",
