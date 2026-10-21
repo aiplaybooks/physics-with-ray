@@ -64,7 +64,7 @@
   "posted_utc": "2026-10-17T12:59:30Z",
   "ig": {
    "views": 181,
-   "reach": 155,
+   "reach": 156,
    "likes": 3,
    "comments": 1,
    "shares": 0,
@@ -187,7 +187,7 @@
   "posted_utc": "2026-10-17T20:49:42Z",
   "ig": {
    "views": 243,
-   "reach": 210,
+   "reach": 211,
    "likes": 10,
    "comments": 1,
    "shares": 0,
@@ -308,6 +308,20 @@
   "ig_id": "18226222357337378",
   "fb_id": "1413531720493903",
   "slot": "2026-10-21 12:00",
-  "posted_utc": "2026-10-21T12:29:43Z"
+  "posted_utc": "2026-10-21T12:29:43Z",
+  "ig": {
+   "views": 0,
+   "reach": 0,
+   "likes": 0,
+   "comments": 1,
+   "shares": 0,
+   "saved": 0,
+   "ig_reels_avg_watch_time": 0
+  },
+  "fb": {
+   "post_video_avg_time_watched": 0,
+   "blue_reels_play_count": 0,
+   "post_video_followers": 0
+  }
  }
 ]

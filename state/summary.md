@@ -1,5 +1,5 @@
-# Summary 2026-10-21 06:45 UTC
-Followers IG 7 + FB 0 = 7 | Views 1659 | Posts 10
+# Summary 2026-10-21 12:46 UTC
+Followers IG 7 + FB 0 = 7 | Views 1659 | Posts 11
 
 | id | hook | views IG/FB | avg watch s IG | likes | cmts | shares | saves |
 |---|---|---|---|---|---|---|---|
@@ -13,3 +13,4 @@ Followers IG 7 + FB 0 = 7 | Views 1659 | Posts 10
 | 04_video5_third_law | When you push a wall, does the wall push | 125/2 | 6.6 | 0 | 1 | 0 | 0 |
 | 02_video3_inertia | Why do you lurch forward when a bus sudd | 116/2 | 7.7 | 1 | 1 | 0 | 0 |
 | 05_video6_energy | Where does a rolling ball's energy go wh | 108/1 | 5.8 | 0 | 1 | 0 | 0 |
+| 11_video12_reflection | Why can you see yourself in a mirror but | 0/0 | - | 0 | 1 | 0 | 0 |
