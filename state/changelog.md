@@ -103,3 +103,10 @@
 - Left caption.outro, tags_core, tags_rotating, tags_per_post (6), first_comment pool, and slots_utc/per_day/every_days unchanged — no fresh data this cycle to justify any move.
 - No publish errors in posts.json; all 10 entries have valid ig_id/fb_id — no KOD fix needed.
 - Next check: after post #11 lands (~2026-10-21 12:00 UTC), compare its views/avg-watch-time/engagement and follow-through (does the reworded "every few days" outro affect follow rate) against this 10-post baseline, and watch for the first organic comment/share or FB follower movement.
+
+## 2026-10-21 06:45 UTC
+- No changes made. Still the exact same 10 posts as the 00:47 UTC check, views byte-for-byte identical across all 10 (258/2, 243/0, 181/0, 177/0, 165/2, 147/0, 130/0, 125/2, 116/2, 108/1) — post #11 (first under the every_days=2/12:00 UTC cadence) is still ~5 hours away at this check time, so there is zero fresh data since the last cycle.
+- Followers unchanged (IG 7 / FB 0) and comments remain exactly 1 per post (our own seed first_comment, zero organic replies) across all 10 posts — now 7+ consecutive checks with no organic engagement signal, so still nothing to split hashtag/first_comment variants on.
+- Kept caption.outro, tags_core, tags_rotating, tags_per_post (6), first_comment pool, and slots_utc/per_day/every_days unchanged — no justified move with identical data to the last check.
+- No publish errors visible in summary.md — no KOD fix needed.
+- Next check: after post #11 lands (~2026-10-21 12:00 UTC), compare its views/avg-watch-time/engagement and follow-through against this 10-post baseline, and watch for the first organic comment/share or FB follower movement.
