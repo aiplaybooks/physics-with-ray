@@ -1,11 +1,11 @@
-# Summary 2026-10-22 06:46 UTC
-Followers IG 8 + FB 0 = 8 | Views 1852 | Posts 11
+# Summary 2026-10-22 12:46 UTC
+Followers IG 8 + FB 0 = 8 | Views 1908 | Posts 11
 
 | id | hook | views IG/FB | avg watch s IG | likes | cmts | shares | saves |
 |---|---|---|---|---|---|---|---|
 | 01_video2_projectile | Which launch angle sends a ball the fart | 258/2 | 12.5 | 3 | 1 | 0 | 2 |
+| 11_video12_reflection | Why can you see yourself in a mirror but | 247/0 | 18.1 | 3 | 1 | 0 | 1 |
 | 07_video8_electricity | How does electricity actually get to you | 243/0 | 6.7 | 10 | 1 | 0 | 5 |
-| 11_video12_reflection | Why can you see yourself in a mirror but | 191/0 | 15.2 | 2 | 1 | 0 | 1 |
 | 03_video4_second_law | Why is it harder to push a heavy cart th | 183/0 | 6.0 | 3 | 1 | 0 | 1 |
 | 09_video10_doppler | Why does an ambulance siren sound high c | 177/0 | 9.4 | 5 | 1 | 0 | 2 |
 | 06_video7_heat | Why does a hot drink cool down but never | 165/2 | 8.2 | 3 | 1 | 0 | 1 |

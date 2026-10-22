@@ -139,3 +139,10 @@
 - Followers unchanged at IG 8 / FB 0. Kept caption.outro, tags_core, tags_rotating, tags_per_post (6), first_comment pool, and slots_utc/per_day/every_days unchanged — no fresh data this cycle to justify any move.
 - No publish errors in posts.json; all 11 entries have valid ig_id/fb_id — no KOD fix needed.
 - Next check: after post #12 lands (~2026-10-23 12:00 UTC), compare its views/avg-watch-time/engagement against this 11-post baseline; keep watching for the first organic (non-seed) comment/share or FB follower movement, and whether more visual/demo-style hooks (like reflection) keep outperforming law-statement hooks.
+
+## 2026-10-22 12:46 UTC
+- No changes made. Still the same 11 posts as the 06:46 UTC check — post #12 is not due until ~2026-10-23 12:00 UTC (every_days=2). Post #11 (11_video12_reflection, mirror/reflection demo hook) kept accruing: 191→247 views, avg watch 15.2s→18.07s, now by far the highest avg-watch-time of all 11 posts (next best is 01_video2_projectile at 12.5s) — further confirming the visual/demo-hook pattern, but still a content/hook signal with no lever in strategy.json.
+- Comments remain exactly 1 on every post (our own seed, zero organic replies) and shares 0 across all 11 posts; followers unchanged at IG 8 / FB 0 — now 15+ consecutive checks with zero organic engagement signal, so still nothing to split hashtag/outro variants on with confidence.
+- Kept caption.outro, tags_core, tags_rotating, tags_per_post (6), first_comment pool, and slots_utc/per_day/every_days unchanged — no fresh data this cycle to justify any move.
+- No publish errors in posts.json; all 11 entries have valid ig_id/fb_id — no KOD fix needed.
+- Next check: after post #12 lands (~2026-10-23 12:00 UTC), compare its views/avg-watch-time/engagement against this 11-post baseline; keep watching for the first organic (non-seed) comment/share or FB follower movement, and whether avg watch time overall (mostly 5.5-18s on ~60s videos) is worth flagging as a content-pacing issue if it stays low past ~15-20 posts.
