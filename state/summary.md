@@ -1,5 +1,5 @@
-# Summary 2026-10-23 00:50 UTC
-Followers IG 8 + FB 0 = 8 | Views 1909 | Posts 11
+# Summary 2026-10-23 06:45 UTC
+Followers IG 8 + FB 0 = 8 | Views 1911 | Posts 11
 
 | id | hook | views IG/FB | avg watch s IG | likes | cmts | shares | saves |
 |---|---|---|---|---|---|---|---|
@@ -12,5 +12,5 @@ Followers IG 8 + FB 0 = 8 | Views 1909 | Posts 11
 | 10_video11_light_sound | Why do you see lightning first and only  | 147/0 | 7.0 | 1 | 1 | 0 | 0 |
 | 08_video9_waves | How does the sound of a guitar reach you | 130/0 | 5.5 | 0 | 1 | 0 | 0 |
 | 04_video5_third_law | When you push a wall, does the wall push | 125/2 | 6.6 | 0 | 1 | 0 | 0 |
-| 02_video3_inertia | Why do you lurch forward when a bus sudd | 116/2 | 7.7 | 1 | 1 | 0 | 0 |
+| 02_video3_inertia | Why do you lurch forward when a bus sudd | 118/2 | 7.6 | 1 | 1 | 0 | 0 |
 | 05_video6_energy | Where does a rolling ball's energy go wh | 108/1 | 5.8 | 0 | 1 | 0 | 0 |

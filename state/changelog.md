@@ -160,3 +160,10 @@
 - Kept caption.outro, tags_core, tags_rotating, tags_per_post (6), first_comment pool, and slots_utc/per_day/every_days unchanged — no justified move with no new data since the last check.
 - No publish errors visible in summary.md — no KOD fix needed.
 - Next check: after post #12 lands (~2026-10-23 12:00 UTC), compare its views/avg-watch-time/engagement against this 11-post baseline; keep watching for the first organic (non-seed) comment/share or FB follower movement, and whether the visual/demo-hook pattern keeps holding as more such hooks come through the queue.
+
+## 2026-10-23 06:45 UTC
+- No changes made. Still the exact same 11 posts as the 2026-10-23 00:50 UTC check, byte-for-byte identical (01_video2_projectile 258/2, 11_video12_reflection 248/0 avg watch 17.8s, 07_video8_electricity 243/0, etc.) — post #12 is not due until ~2026-10-23 12:00 UTC (every_days=2), so zero fresh data this cycle.
+- Comments remain exactly 1 on every post (our own seed first_comment, zero organic replies) and shares are 0 across all 11 posts; followers unchanged at IG 8 / FB 0 — now 18+ consecutive checks with zero organic engagement signal, so still nothing to split hashtag/outro variants on with confidence.
+- Kept caption.outro, tags_core, tags_rotating, tags_per_post (6), first_comment pool, and slots_utc/per_day/every_days unchanged — no justified move with no new data since the last check.
+- No publish errors in posts.json; all 11 entries have valid ig_id/fb_id — no KOD fix needed.
+- Next check: after post #12 lands (~2026-10-23 12:00 UTC), compare its views/avg-watch-time/engagement against this 11-post baseline; keep watching for the first organic (non-seed) comment/share or FB follower movement, and whether the visual/demo-hook pattern (reflection, electricity, doppler) keeps outperforming law-statement hooks as more queue items post.
