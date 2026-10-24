@@ -339,6 +339,20 @@
   "ig_id": "18137053051711439",
   "fb_id": "2636378353441937",
   "slot": "2026-10-24 12:00",
-  "posted_utc": "2026-10-24T12:15:23Z"
+  "posted_utc": "2026-10-24T12:15:23Z",
+  "ig": {
+   "views": 15,
+   "reach": 0,
+   "likes": 0,
+   "comments": 1,
+   "shares": 0,
+   "saved": 0,
+   "ig_reels_avg_watch_time": 0
+  },
+  "fb": {
+   "post_video_avg_time_watched": 0,
+   "blue_reels_play_count": 0,
+   "post_video_followers": 0
+  }
  }
 ]

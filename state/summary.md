@@ -1,5 +1,5 @@
-# Summary 2026-10-24 06:42 UTC
-Followers IG 8 + FB 0 = 8 | Views 1911 | Posts 11
+# Summary 2026-10-24 12:42 UTC
+Followers IG 8 + FB 0 = 8 | Views 1926 | Posts 12
 
 | id | hook | views IG/FB | avg watch s IG | likes | cmts | shares | saves |
 |---|---|---|---|---|---|---|---|
@@ -14,3 +14,4 @@ Followers IG 8 + FB 0 = 8 | Views 1911 | Posts 11
 | 04_video5_third_law | When you push a wall, does the wall push | 125/2 | 6.6 | 0 | 1 | 0 | 0 |
 | 02_video3_inertia | Why do you lurch forward when a bus sudd | 118/2 | 7.6 | 1 | 1 | 0 | 0 |
 | 05_video6_energy | Where does a rolling ball's energy go wh | 108/1 | 5.8 | 0 | 1 | 0 | 0 |
+| 12_video13_refraction | Why does a straw look broken in a glass  | 15/0 | - | 0 | 1 | 0 | 0 |
