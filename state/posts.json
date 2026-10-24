@@ -323,5 +323,22 @@
    "blue_reels_play_count": 0,
    "post_video_followers": 0
   }
+ },
+ {
+  "order": 12,
+  "id": "12_video13_refraction",
+  "hook": "Why does a straw look broken in a glass of water? 🥤",
+  "body": "Ray explains refraction: light changes speed between materials, so it bends. Try this at home with a glass of water and tell us what you see.",
+  "tags": [
+   "#refraction",
+   "#lightphysics",
+   "#sciencefacts"
+  ],
+  "first_comment": "Try it right now with a glass and a pencil. Does yours look broken too? 👇",
+  "yt_id": "CCC3WmMpPL0",
+  "ig_id": "18137053051711439",
+  "fb_id": "2636378353441937",
+  "slot": "2026-10-24 12:00",
+  "posted_utc": "2026-10-24T12:15:23Z"
  }
 ]
